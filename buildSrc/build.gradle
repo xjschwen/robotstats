@@ -1,0 +1,32 @@
+apply plugin: 'groovy'
+apply plugin: 'java'
+
+//These are the dependancies for the parent build.gradle script
+// contained in buildSrc directory tree
+
+repositories {
+    mavenCentral()
+}
+
+
+//This tells the GroovyCompile tasks to apend the ivy to the claspath
+// normally groovy scripts with @Grapes and @Grab will fail with ivy dependancies
+//tasks.withType(GroovyCompile) {
+//  groovyClasspath += configurations.ivy
+//}
+
+dependencies {
+
+  compile  group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.4.12'
+  runtime  group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.4.12'
+
+  compile  group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.25'
+  runtime  group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.25'
+
+  compile  group: 'commons-cli', name: 'commons-cli', version: '1.4'
+  runtime  group: 'commons-cli', name: 'commons-cli', version: '1.4'
+
+  compile   group: 'org.codehaus.groovy.modules.http-builder', name: 'http-builder', version: '0.7.1'
+  runtime   group: 'org.codehaus.groovy.modules.http-builder', name: 'http-builder', version: '0.7.1'
+
+}

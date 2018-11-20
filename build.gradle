@@ -1,0 +1,19 @@
+apply plugin: 'base'
+apply plugin: 'groovy'
+apply plugin: 'java'
+apply plugin: 'application'
+
+
+task toa () {
+  doLast {
+    def toa = new ToaRestClient()
+    println (toa.get("event/1819-FIM-Q4"))
+  }
+}
+
+task tba () {
+  doLast {
+    def tba = new TbaRestClient()
+    println (tba.get("event/2018mimil"))
+  }
+}
