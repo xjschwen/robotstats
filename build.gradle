@@ -21,17 +21,22 @@ task tba () {
       //println (tba.getMatchKeys(event.key))
 
     }
-
-    println ("2018mimil_qm4")
-    println (tba.getMatchData("2018mimil_qm4"))
-    println "\n\nBLUE\n\n"
-    tba.getMatchData("2018mimil_qm4").score_breakdown.blue.each {k,v ->
-      println ("$k:$v")
+    def event =  new EventData ("2018mimil")
+    tba.getMatchKeys(event.eventKey).each { mk ->
+      // get the match data from the internet
+      def matchDataRaw = tba.getMatchData(mk)
+      println (matchDataRaw.key)
+      // println ("\n\n" + matchDataRaw + "\n\n")
+      def matchData = new MatchData(matchDataRaw.key)
+      matchData.eventKey = event.eventKey
+      matchData.blueTeams = matchDataRaw.alliances.blue.team_keys
+      matchData.blueScore = matchDataRaw.alliances.blue.score
+      matchData.redTeams = matchDataRaw.alliances.red.team_keys
+      matchData.redScore = matchDataRaw.alliances.red.score
+      matchData.blueMatchData = matchDataRaw.score_breakdown.blue
+      matchData.redMatchData = matchDataRaw.score_breakdown.red
+      event.addMatch(matchData)
     }
-    println "\n\nRED !!\n\n"
-    tba.getMatchData("2018mimil_qm4").score_breakdown.red.each {k,v ->
-      println ("$k:$v")
-    }
-
+    event.printThem()
   }
 }
