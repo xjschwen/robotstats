@@ -19,10 +19,29 @@ class TbaRestClient extends RESTClient {
     this.contentType = ContentType.JSON
   }
 
+
+
+
   //overload the get to only return the json elements
   def get (String path) {
     super.get(path:path)  {response, json ->
       return json
     }
+  }
+
+  def getDistricts (){
+    return (this.get("districts/2018"))
+  }
+
+  def getEvents (String district_key){
+    return (this.get("district/${district_key}/events"))
+  }
+
+  def getMatchKeys(String event_key){
+    return (this.get("event/${event_key}/matches/keys"))
+  }
+
+  def getMatchData(String match_key){
+    return (this.get("match/${match_key}"))
   }
 }

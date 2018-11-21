@@ -14,6 +14,24 @@ task toa () {
 task tba () {
   doLast {
     def tba = new TbaRestClient()
-    println (tba.get("event/2018mimil"))
+    //println (tba.getDistricts())
+
+    tba.getEvents("2018fim").each { event ->
+      println (event.key)
+      //println (tba.getMatchKeys(event.key))
+
+    }
+
+    println ("2018mimil_qm4")
+    println (tba.getMatchData("2018mimil_qm4"))
+    println "\n\nBLUE\n\n"
+    tba.getMatchData("2018mimil_qm4").score_breakdown.blue.each {k,v ->
+      println ("$k:$v")
+    }
+    println "\n\nRED !!\n\n"
+    tba.getMatchData("2018mimil_qm4").score_breakdown.red.each {k,v ->
+      println ("$k:$v")
+    }
+
   }
 }
