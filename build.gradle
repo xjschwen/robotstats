@@ -11,7 +11,7 @@ task toa () {
   }
 }
 
-task tba () {
+task tba_event () {
   doLast {
     def tba = new TbaRestClient()
     //println (tba.getDistricts())
@@ -27,15 +27,20 @@ task tba () {
       def matchDataRaw = tba.getMatchData(mk)
       println (matchDataRaw.key)
       // println ("\n\n" + matchDataRaw + "\n\n")
-      def matchData = new MatchData(matchDataRaw.key)
-      matchData.eventKey = event.eventKey
-      matchData.blueTeams = matchDataRaw.alliances.blue.team_keys
-      matchData.blueScore = matchDataRaw.alliances.blue.score
-      matchData.redTeams = matchDataRaw.alliances.red.team_keys
-      matchData.redScore = matchDataRaw.alliances.red.score
-      matchData.blueMatchData = matchDataRaw.score_breakdown.blue
-      matchData.redMatchData = matchDataRaw.score_breakdown.red
-      event.addMatch(matchData)
+      def matchDataBlue = new Match2018Data(event.eventKey, matchDataRaw.key)
+      matchDataBlue.teams = matchDataRaw.alliances.blue.team_keys
+      matchDataBlue.score = matchDataRaw.alliances.blue.score
+      matchDataBlue.color = "blue"
+      matchDataBlue.matchData = matchDataRaw.score_breakdown.blue
+      event.addMatch(matchDataBlue)
+
+      def matchDataRed = new Match2018Data(event.eventKey, matchDataRaw.key)
+      matchDataRed.teams = matchDataRaw.alliances.red.team_keys
+      matchDataRed.score = matchDataRaw.alliances.red.score
+      matchDataRed.color = "red"
+      matchDataRed.matchData = matchDataRaw.score_breakdown.red
+      event.addMatch(matchDataRed)
+
     }
     event.printThem()
   }

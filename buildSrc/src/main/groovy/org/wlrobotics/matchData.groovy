@@ -1,18 +1,21 @@
-class MatchData extends Object {
+class Match2018Data extends Object {
 
-  def eventKey = null
-  def matchKey = null
-  def redTeams = [:]
-  def blueTeams = [:]
-  def blueMatchData = null
-  def redMatchData = null
-  def blueScore = 0
-  def redScore = 0
+  String eventKey = null
+  String matchKey = null
+  def teams = [:]
+  def matchData = null
+  int score = 0
+  String color = "purple"
 
-  MatchData (String key) {
+  Match2018Data (String event, String key) {
+    this.eventKey = event
     this.matchKey = key
   }
 
-  
-
+  def setMatchData (teams = [:], score, color, matchData){
+    this.teams = teams
+    this.score = score
+    this.color = color
+    this.matchData = matchData
+  }
 }

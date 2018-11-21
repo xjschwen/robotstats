@@ -1,7 +1,7 @@
 class EventData extends Object {
 
-  def eventKey = null
-  def columns = [:]
+  String eventKey = null
+  def columns = []
   def matches = []
   EventData (String key) {
     this.eventKey = key
@@ -22,10 +22,7 @@ class EventData extends Object {
       }
       println header
       matches.each { m ->
-        //println for red
-        println (this.eventKey + ",red," + m.matchKey + "," + m.redScore)
-        //println for blue
-        println (this.eventKey + ",blue,"+ m.matchKey + "," + m.blueScore)
+        println (m.eventKey + "," + m.matchKey + "," + m.color + "," + m.score + "," + m.teams)
       }
   }
 
