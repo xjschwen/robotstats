@@ -15,15 +15,12 @@ class EventData extends Object {
     column.addAll(cols)
   }
 
-  void printThem (){
-      String header = ""
-      columns.each { col ->
-        header = header + "," + col
-      }
-      println header
+  String toString (){
+      String retValue = matches[0].getHeader() + "\n"
       matches.each { m ->
-        println (m.eventKey + "," + m.matchKey + "," + m.color + "," + m.score + "," + m.teams)
+        retValue +=  m.toString() + "\n"
       }
+      return retValue
   }
 
 }

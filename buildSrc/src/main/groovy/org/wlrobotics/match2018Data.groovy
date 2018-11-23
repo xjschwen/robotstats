@@ -18,4 +18,23 @@ class Match2018Data extends Object {
     this.color = color
     this.matchData = matchData
   }
+
+  String getHeader () {
+    String retValue = "MatchKey"
+    retValue += "," + "Team 1"
+    retValue += "," + "Team 2"
+    retValue += "," + "Team 3"
+    retValue += "," + "Score"
+  }
+
+
+  String toString() {
+    String retValue = matchKey
+    retValue += "," + teams[0][3..-1]
+    retValue += "," + teams[1][3..-1]
+    retValue += "," + teams[2][3..-1]
+    retValue += "," + score
+    return retValue
+
+  }
 }

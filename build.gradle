@@ -42,6 +42,8 @@ task tba_event () {
       event.addMatch(matchDataRed)
 
     }
-    event.printThem()
+    File f = new File (event.eventKey + ".csv")
+    f.write (event.toString())
+
   }
 }
