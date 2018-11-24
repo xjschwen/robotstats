@@ -1,40 +1,46 @@
-class Match2018Data extends Object {
+class Match2018Data extends BaseMatchData {
 
-  String eventKey = null
-  String matchKey = null
-  def teams = [:]
-  def matchData = null
-  int score = 0
-  String color = "purple"
-
-  Match2018Data (String event, String key) {
-    this.eventKey = event
-    this.matchKey = key
+  Match2018Data (String eventKey, String matchKey) {
+    this.eventKey = eventKey
+    this.matchKey = matchKey
   }
 
-  def setMatchData (teams = [:], score, color, matchData){
-    this.teams = teams
-    this.score = score
-    this.color = color
-    this.matchData = matchData
-  }
-
-  String getHeader () {
-    String retValue = "MatchKey"
-    retValue += "," + "Team 1"
-    retValue += "," + "Team 2"
-    retValue += "," + "Team 3"
-    retValue += "," + "Score"
+  void translateMatchData () {
+    matchData.each { k,v ->
+      if (k.startsWith("autoRobot")) { translate_autoRobot()}
+      if (k.startsWith("endgameRobot")) {translate_endgameRobot()}
+    }
   }
 
 
-  String toString() {
-    String retValue = matchKey
-    retValue += "," + teams[0][3..-1]
-    retValue += "," + teams[1][3..-1]
-    retValue += "," + teams[2][3..-1]
-    retValue += "," + score
-    return retValue
-
+  void translate_autoRobot() {
+    def fields = ["autoRobot1", "autoRobot2", "autoRobot3"]
+    fields.each {f ->
+      if (matchData."$f" == "None") {
+        matchData."$f" = 0
+      }
+      else if (matchData."$f" == "AutoRun"){
+        matchData."$f" = 5
+      }
+    }
   }
+
+  void translate_endgameRobot () {
+    def fields = ["endgameRobot1", "endgameRobot2", "endgameRobot3"]
+    fields.each {f ->
+      if (matchData."$f" == "None") {
+        matchData."$f" = 0
+      }
+      else if (matchData."$f" == "Levitate"){
+        matchData."$f" = 30
+      }
+      else if (matchData."$f" == "Climbing"){
+        matchData."$f" = 30
+      }
+      else if (matchData."$f" == "Parking"){
+        matchData."$f" = 5
+      }
+    }
+  }
+
 }

@@ -16,11 +16,6 @@ task tba_event () {
     def tba = new TbaRestClient()
     //println (tba.getDistricts())
 
-    tba.getEvents("2018fim").each { event ->
-      println (event.key)
-      //println (tba.getMatchKeys(event.key))
-
-    }
     def event =  new EventData ("2018mimil")
     tba.getMatchKeys(event.eventKey).each { mk ->
       // get the match data from the internet
@@ -42,8 +37,16 @@ task tba_event () {
       event.addMatch(matchDataRed)
 
     }
-    File f = new File (event.eventKey + ".csv")
-    f.write (event.toString())
+    event.write()
+  }
+}
 
+task tba_listEvents () {
+  doLast {
+    def tba = new TbaRestClient()
+    //println (tba.getDistricts())
+    tba.getEvents("2018fim").each { event ->
+      println (event.key)
+    }
   }
 }

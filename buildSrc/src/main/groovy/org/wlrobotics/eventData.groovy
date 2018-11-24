@@ -10,17 +10,17 @@ class EventData extends Object {
     matches.add (match)
   }
 
-  def setColumns (cols){
-    columns = [this.eventKey, "matchKey", "color", "score"]
-    column.addAll(cols)
-  }
-
   String toString (){
       String retValue = matches[0].getHeader() + "\n"
       matches.each { m ->
         retValue +=  m.toString() + "\n"
       }
       return retValue
+  }
+
+  void write () {
+    File f = new File (this.eventKey + ".csv")
+    f.write (this.toString())
   }
 
 }
