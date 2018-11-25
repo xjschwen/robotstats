@@ -13,7 +13,7 @@ class ToaRestClient extends RESTClient {
 
     def headers  = [:]
     headers.put("X-TOA-Key", apiKey)
-    headers.put("X-Application-Origin", "8492-OPR-App")
+    headers.put("X-Application-Origin", "http://www.wlrobotics.org/")
     headers.put ("ContentType", "application/json")
     this.defaultURI = new URIBuilder(base)
     this.setHeaders(headers)
@@ -25,13 +25,5 @@ class ToaRestClient extends RESTClient {
     super.get(path:path)  {response, json ->
       return json
     }
-  }
-
-  def getMatchKeys(String event_key){
-    return (this.get("event/${event_key}/matches/keys"))
-  }
-
-  def getMatchData(String match_key){
-    return (this.get("match/${match_key}"))
   }
 }

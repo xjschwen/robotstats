@@ -7,9 +7,8 @@ apply plugin: 'application'
 task toa () {
   doLast {
     def toa = new ToaRestClient()
-    println (toa.get("event/1819-FIM-Q4"))
-
-
+    println (toa.get("/"))
+    //println (toa.get("events/1819-FIM-Q4/matches"))
 
   }
 }

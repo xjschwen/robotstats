@@ -19,9 +19,6 @@ class TbaRestClient extends RESTClient {
     this.contentType = ContentType.JSON
   }
 
-
-
-
   //overload the get to only return the json elements
   def get (String path) {
     super.get(path:path)  {response, json ->
