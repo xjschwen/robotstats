@@ -13,7 +13,6 @@ class TbaRestClient extends RESTClient {
     def headers  = [:]
     headers.put("X-TBA-Auth-Key", apiKey)
     //headers.put("X-Application-Origin", "8492-OPR-App")
-    //headers.put ("ContentType", "application/json")
     this.defaultURI = new URIBuilder(base)
     this.setHeaders(headers)
     this.contentType = ContentType.JSON
