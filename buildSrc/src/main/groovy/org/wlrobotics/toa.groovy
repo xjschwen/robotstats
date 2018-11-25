@@ -9,7 +9,7 @@ import groovyx.net.http.ContentType
 class ToaRestClient extends RESTClient {
   def ToaRestClient() {
     String base = "https://theorangealliance.org/api"
-    String apiKey = "234lksdjfoup23423"
+    String apiKey = "G+tJm5ehGpprwrq262bUdeXEyx7JBtfDoU5L8xX941S6SAXywfY+iQ=="
 
     def headers  = [:]
     headers.put("X-TOA-Key", apiKey)
@@ -25,5 +25,13 @@ class ToaRestClient extends RESTClient {
     super.get(path:path)  {response, json ->
       return json
     }
+  }
+
+  def getMatchKeys(String event_key){
+    return (this.get("event/${event_key}/matches/keys"))
+  }
+
+  def getMatchData(String match_key){
+    return (this.get("match/${match_key}"))
   }
 }

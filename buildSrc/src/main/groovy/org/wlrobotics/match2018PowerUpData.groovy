@@ -1,6 +1,6 @@
-class Match2018Data extends BaseMatchData {
+class Match2018PowerUpData extends BaseMatchData {
 
-  Match2018Data (String eventKey, String matchKey) {
+  Match2018PowerUpData (String eventKey, String matchKey) {
     this.eventKey = eventKey
     this.matchKey = matchKey
   }

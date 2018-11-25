@@ -8,34 +8,35 @@ task toa () {
   doLast {
     def toa = new ToaRestClient()
     println (toa.get("event/1819-FIM-Q4"))
+
+
+
   }
 }
 
 task tba_event () {
   doLast {
     def tba = new TbaRestClient()
-    //println (tba.getDistricts())
-
     def event =  new EventData ("2018mimil")
+    def matchFactory = new TbaMatchDataFactory(event.eventKey)
+
     tba.getMatchKeys(event.eventKey).each { mk ->
       // get the match data from the internet
       def matchDataRaw = tba.getMatchData(mk)
       println (matchDataRaw.key)
-      // println ("\n\n" + matchDataRaw + "\n\n")
-      def matchDataBlue = new Match2018Data(event.eventKey, matchDataRaw.key)
+      def matchDataBlue = matchFactory.getMatch (matchDataRaw.key)
       matchDataBlue.teams = matchDataRaw.alliances.blue.team_keys
       matchDataBlue.score = matchDataRaw.alliances.blue.score
       matchDataBlue.color = "blue"
       matchDataBlue.matchData = matchDataRaw.score_breakdown.blue
       event.addMatch(matchDataBlue)
 
-      def matchDataRed = new Match2018Data(event.eventKey, matchDataRaw.key)
+      def matchDataRed = matchFactory.getMatch(matchDataRaw.key)
       matchDataRed.teams = matchDataRaw.alliances.red.team_keys
       matchDataRed.score = matchDataRaw.alliances.red.score
       matchDataRed.color = "red"
       matchDataRed.matchData = matchDataRaw.score_breakdown.red
       event.addMatch(matchDataRed)
-
     }
     event.write()
   }
@@ -45,7 +46,7 @@ task tba_listEvents () {
   doLast {
     def tba = new TbaRestClient()
     //println (tba.getDistricts())
-    tba.getEvents("2018fim").each { event ->
+    tba.getEvents("2014fim").each { event ->
       println (event.key)
     }
   }
