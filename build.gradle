@@ -42,6 +42,14 @@ task tba_event () {
   }
 }
 
+
+task tba_test () {
+  doLast {
+    def tba = new TbaRestClient()
+    println (tba.get ("event/2018mimil/matches"))
+  }
+}
+
 task tba_listEvents () {
   doLast {
     def tba = new TbaRestClient()
