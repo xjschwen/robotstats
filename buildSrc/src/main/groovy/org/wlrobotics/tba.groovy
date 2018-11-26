@@ -40,4 +40,9 @@ class TbaRestClient extends RESTClient {
   def getMatchData(String match_key){
     return (this.get("match/${match_key}"))
   }
+
+  def getMatchDataAll (String eventKey){
+    this.get ("event/${eventKey}/matches")
+  }
+
 }
