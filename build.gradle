@@ -5,6 +5,11 @@ apply plugin: 'application'
 
 mkdir buildDir
 
+wrapper {
+    distributionType = Wrapper.DistributionType.ALL
+    gradleVersion = "4.10.2"
+}
+
 task toa () {
   doLast {
     def toa = new ToaRestClient()
