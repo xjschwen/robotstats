@@ -24,5 +24,4 @@ class EventData extends Object {
     File f = new File (writeInThisDir, this.eventKey + ".csv")
     f.write (this.toString())
   }
-
 }

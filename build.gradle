@@ -8,8 +8,8 @@ mkdir buildDir
 task toa () {
   doLast {
     def toa = new ToaRestClient()
-    println (toa.get(""))
-    println (toa.get("event/1819-FIM-Q4/"))
+    println (toa.get("event/1819-FIM-Q4/matches"))
+    println (toa.get("event/1819-FIM-Q4/matches/details"))
 
   }
 }
