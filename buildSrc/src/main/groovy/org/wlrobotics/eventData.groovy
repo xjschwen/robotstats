@@ -1,3 +1,5 @@
+
+
 class EventData extends Object {
 
   String eventKey = null
@@ -18,8 +20,8 @@ class EventData extends Object {
       return retValue
   }
 
-  void write () {
-    File f = new File (this.eventKey + ".csv")
+  void write (String writeInThisDir) {
+    File f = new File (writeInThisDir, this.eventKey + ".csv")
     f.write (this.toString())
   }
 

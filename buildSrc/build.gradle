@@ -17,8 +17,8 @@ repositories {
 
 dependencies {
 
-  compile  group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.4.12'
-  runtime  group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.4.12'
+  compile  group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.4.15'
+  runtime  group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.4.15'
 
   compile  group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.25'
   runtime  group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.25'

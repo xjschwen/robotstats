@@ -3,6 +3,7 @@ apply plugin: 'groovy'
 apply plugin: 'java'
 apply plugin: 'application'
 
+mkdir buildDir
 
 task toa () {
   doLast {
@@ -37,7 +38,7 @@ task tba_event () {
       matchDataRed.matchData = matchDataRaw.score_breakdown.red
       event.addMatch(matchDataRed)
     }
-    event.write()
+    event.write(buildDir.toString())
   }
 }
 
