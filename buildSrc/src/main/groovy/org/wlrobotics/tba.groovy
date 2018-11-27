@@ -16,6 +16,7 @@ class TbaRestClient extends RESTClient {
     this.defaultURI = new URIBuilder(base)
     this.setHeaders(headers)
     this.contentType = ContentType.JSON
+
   }
 
   //overload the get to only return the json elements

@@ -10,16 +10,28 @@ wrapper {
     gradleVersion = "4.10.2"
 }
 
-task toa () {
-  doLast {
-    def toa = new ToaRestClient()
-    println (toa.get("event/1819-FIM-Q4/matches"))
-    println (toa.get("event/1819-FIM-Q4/matches/details"))
+task toa_event () {
+  group "FTC - Titainum Trojans"
+  description "Pulls data for a single event from TOA."
 
+  doLast {
+    def eventProcessor = new ToaEventProcessor(buildDir.toString())
+    eventProcessor.process("1819-FIM-Q3")
   }
 }
 
 task tba_event () {
+  group "FRC - The TroBots"
+  description "Pulls data for a single event from TBA."
+  doLast {
+    def tbaProcessor = new TbaEventProcessor(buildDir.toString())
+    tbaProcessor.process("2018milan")
+  }
+}
+
+task tba_allevents () {
+  group "FRC - The TroBots"
+  description "Pulls data for a all events for this season."
   doLast {
     def tbaProcessor = new TbaEventProcessor(buildDir.toString())
     def tba = new TbaRestClient()
@@ -29,14 +41,10 @@ task tba_event () {
   }
 }
 
-task tba_test () {
-  doLast {
-    def tba = new TbaRestClient()
-    println (tba.get ("event/2018mimil/matches"))
-  }
-}
 
 task tba_listEvents () {
+  group "FRC - The TroBots"
+  description "Prints Event Keys for this season."
   doLast {
     def tba = new TbaRestClient()
     //println (tba.getDistricts())

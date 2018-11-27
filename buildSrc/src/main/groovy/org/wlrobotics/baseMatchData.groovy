@@ -32,7 +32,12 @@ abstract class BaseMatchData extends Object {
     retValue += "," + color
     retValue += "," + teams[0]// [3..-1]
     retValue += "," + teams[1]// [3..-1]
-    retValue += "," + teams[2]// [3..-1]
+    if (teams[2] != null) {
+      retValue += "," + teams[2] // [3..-1]
+    } else {
+      retValue += "," + ""
+    }
+
     retValue += "," + score
     translateMatchData()
     matchData.each {k,v ->
@@ -42,5 +47,4 @@ abstract class BaseMatchData extends Object {
   }
 
   abstract void translateMatchData ()
-
 }
