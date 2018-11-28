@@ -21,8 +21,8 @@ class ToaEventProcessor extends Object {
     def toa = new ToaRestClient()
     def event =  new EventData (eventKey)
     def matchFactory = new ToaMatchDataFactory(event.eventKey)
-    this.matchesRaw = toa.getMatches("1819-FIM-Q4")
-    this.matchesDetailsRaw =toa.getMatchesDetails("1819-FIM-Q4")
+    this.matchesRaw = toa.getMatches(event.eventKey)
+    this.matchesDetailsRaw =toa.getMatchesDetails(event.eventKey)
     this.matchesRaw.each {mr ->
       def matchDataBlue = matchFactory.getMatch(mr.match_key)
       matchDataBlue.teams =  getTeams(mr.participants, "B")

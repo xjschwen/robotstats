@@ -47,7 +47,7 @@ class Match1819RoverRuckusData extends BaseMatchData {
     matchData.tele_silver = matchData.tele_silver * 5
   }
   void translate_tele_depot() {
-    matchData.tele_depot = matchData.tele_depot * 5
+    matchData.tele_depot = matchData.tele_depot * 2
   }
 
   void translate_end_Latch() {
@@ -55,7 +55,7 @@ class Match1819RoverRuckusData extends BaseMatchData {
   }
 
   void translate_end_in() {
-    matchData.end_in = matchData.end_in * 10
+    matchData.end_in = matchData.end_in * 15
   }
   void translate_end_comp() {
     matchData.end_comp = matchData.end_comp * 25
