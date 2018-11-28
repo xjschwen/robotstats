@@ -11,7 +11,10 @@ class Match2017SteamWorksData extends BaseMatchData {
     }
   }
 
+  void add_newColumns () {
 
+  }
+  
   void translate_autoRobot() {
     def fields = ["robot1Auto",	"robot2Auto",	"robot3Auto"]
     fields.each {f ->

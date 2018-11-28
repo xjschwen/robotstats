@@ -26,6 +26,21 @@ class ToaRestClient extends RESTClient {
     }
   }
 
+  def getRegions (){
+    this.get("regions")
+  }
+
+  def getSeasons (){
+    this.get("seasons")
+  }
+
+  def getEvents( String eventKey){
+    return this.get("event/${eventKey}")
+  }
+
+  def getEvent( String eventKey){
+    return this.get("event/${eventKey}")
+  }
   def getMatches(String eventKey){
     return this.get("event/${eventKey}/matches")
   }

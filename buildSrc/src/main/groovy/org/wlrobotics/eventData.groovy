@@ -5,6 +5,8 @@ class EventData extends Object {
   String eventKey = null
   def columns = []
   def matches = []
+  String city = null
+
   EventData (String key) {
     this.eventKey = key
   }
@@ -13,15 +15,26 @@ class EventData extends Object {
   }
 
   String toString (){
-      String retValue = matches[0].getHeader() + "\n"
-      matches.each { m ->
-        retValue +=  m.toString() + "\n"
-      }
-      return retValue
+    //the toString method will possibly add columns to the data that need to be
+    // collected in the header.
+    matches.each { m ->
+      m.add_newColumns ()
+    }
+    String retValue = ""
+    try {
+      retValue = matches[0].getHeader() + "\n"
+    }
+    catch (java.lang.NullPointerException e){
+      return "No Data for ${eventKey}"
+    }
+    matches.each { m ->
+      retValue +=  m.toString() + "\n"
+    }
+    return retValue
   }
 
   void write (String writeInThisDir) {
-    File f = new File (writeInThisDir, this.eventKey + ".csv")
+    File f = new File (writeInThisDir, "${this.eventKey}_${this.city}.csv")
     f.write (this.toString())
   }
 }

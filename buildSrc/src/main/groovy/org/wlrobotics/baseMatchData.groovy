@@ -47,4 +47,5 @@ abstract class BaseMatchData extends Object {
   }
 
   abstract void translateMatchData ()
+  abstract void add_newColumns ()
 }

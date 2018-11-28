@@ -5,6 +5,7 @@ class ToaEventProcessor extends Object {
   String buildDir = null
   def matchesRaw = null
   def matchesDetailsRaw = null
+  def eventRaw = null
 
   enum Alliance {
     RED,
@@ -21,8 +22,10 @@ class ToaEventProcessor extends Object {
     def toa = new ToaRestClient()
     def event =  new EventData (eventKey)
     def matchFactory = new ToaMatchDataFactory(event.eventKey)
+    this.eventRaw = toa.getEvent(event.eventKey)
     this.matchesRaw = toa.getMatches(event.eventKey)
     this.matchesDetailsRaw =toa.getMatchesDetails(event.eventKey)
+    event.city = this.eventRaw.city.toString()[1..-2].replace(" ","")
     this.matchesRaw.each {mr ->
       def matchDataBlue = matchFactory.getMatch(mr.match_key)
       matchDataBlue.teams =  getTeams(mr.participants, "B")

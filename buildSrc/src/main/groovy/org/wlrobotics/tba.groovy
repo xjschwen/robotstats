@@ -30,6 +30,10 @@ class TbaRestClient extends RESTClient {
     return (this.get("districts/2018"))
   }
 
+  def getEvent (String eventKey) {
+    return (this.get("event/${eventKey}"))
+  }
+
   def getEvents (String district_key){
     return (this.get("district/${district_key}/events"))
   }

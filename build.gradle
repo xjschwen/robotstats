@@ -16,7 +16,69 @@ task toa_event () {
 
   doLast {
     def eventProcessor = new ToaEventProcessor(buildDir.toString())
-    eventProcessor.process("1819-FIM-Q3")
+    eventProcessor.process("1819-FIM-Q12")
+  }
+}
+
+task toa () {
+  doLast {
+    def toa = new ToaRestClient ()
+    toa.get("event").each {e ->
+      if (e.event_key.contains ("FIM")) {
+        println (e)
+      }
+    }
+  }
+}
+
+task toa_allevents () {
+  group "FTC - Titainum Trojans"
+  description "lists all fim events from TOA."
+  doLast {
+    def eventProcessor = new ToaEventProcessor(buildDir.toString())
+    def toa = new ToaRestClient ()
+    toa.get("event").each {e ->
+      if (e.event_key.contains ("FIM")) {
+        println ("fetching ${e.event_key}")
+        eventProcessor.process(e.event_key)
+        sleep(6000)
+      }
+    }
+  }
+}
+
+task toa_listregions () {
+  group "FTC - Titainum Trojans"
+  description "lists all of the FTC regions in the TOA"
+  doLast {
+    def toa = new ToaRestClient()
+    toa.getRegions().each {r ->
+      r.each {k,v  ->
+        print "$k:  $v".padRight(20)
+      }
+      println ""
+    }
+  }
+}
+
+task toa_listseasons () {
+  group "FTC - Titainum Trojans"
+  description "lists all of the FTC seasons in the TOA"
+  doLast {
+    def toa = new ToaRestClient()
+    toa.getSeasons().each {s ->
+      s.each {k,v  ->
+        print ("$k:  $v".padRight(34))
+      }
+      println ""
+    }
+  }
+}
+
+task tba () {
+  doLast {
+    def tba = new TbaRestClient()
+    println tba.getEvent("2018milan")
   }
 }
 
@@ -40,7 +102,6 @@ task tba_allevents () {
     }
   }
 }
-
 
 task tba_listEvents () {
   group "FRC - The TroBots"

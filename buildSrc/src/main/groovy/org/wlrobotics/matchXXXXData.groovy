@@ -8,4 +8,9 @@ class MatchXXXXData extends BaseMatchData {
   void translateMatchData () {
 
   }
+
+  void add_newColumns () {
+
+  }
+
 }

@@ -2,6 +2,7 @@
 class TbaEventProcessor extends Object {
 
   String buildDir = null
+  def eventRaw = null
   TbaEventProcessor (String outDir ) {
     buildDir = outDir
   }
@@ -11,7 +12,9 @@ class TbaEventProcessor extends Object {
     def tba = new TbaRestClient()
     def event =  new EventData (eventKey)
     def matchFactory = new TbaMatchDataFactory(event.eventKey)
-
+    eventRaw = tba.getEvent(event.eventKey)
+    event.city = eventRaw.city
+    event.city = this.eventRaw.city.toString().replace(" ","")
     tba.getMatchDataAll(event.eventKey).each { matchDataRaw ->
       // get the match data from the internet
       //def matchDataRaw = tba.getMatchData(mk)

@@ -19,6 +19,42 @@ class Match1819RoverRuckusData extends BaseMatchData {
       translate_end_comp()
       translate_min_pen()
       translate_maj_pen()
+      calc_autoTotal()
+      calc_teleTotal()
+      calc_endTotal()
+      calc_NPScore()
+  }
+
+  void add_newColumns() {
+    matchData["auto_total"] = 0
+    matchData["tele_total"] = 0
+    matchData["end_total"] = 0
+    matchData["np_score"] = 0
+  }
+
+  void calc_autoTotal() {
+      matchData["auto_total"] = (matchData.auto_land +
+                                  matchData.auto_samp +
+                                  matchData.auto_claim +
+                                  matchData.auto_park)
+  }
+
+  void calc_teleTotal() {
+      matchData["tele_total"] = (matchData.tele_gold +
+                                  matchData.tele_silver +
+                                  matchData.tele_depot)
+  }
+
+  void calc_endTotal() {
+      matchData["end_total"] = (matchData.end_latch +
+                                  matchData.end_in +
+                                  matchData.end_comp)
+  }
+
+  void calc_NPScore () {
+    matchData["np_score"] = (matchData.auto_total +
+                                matchData.tele_total +
+                                matchData.end_total)
   }
 
   void translate_teams() {

@@ -5,6 +5,10 @@ class Match2018PowerUpData extends BaseMatchData {
     this.matchKey = matchKey
   }
 
+  void add_newColumns () {
+
+  }
+  
   void translateMatchData () {
     matchData.each { k,v ->
       if (k.startsWith("autoRobot")) { translate_autoRobot()}
