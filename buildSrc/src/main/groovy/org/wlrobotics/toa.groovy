@@ -34,8 +34,8 @@ class ToaRestClient extends RESTClient {
     this.get("seasons")
   }
 
-  def getEvents( String eventKey){
-    return this.get("event/${eventKey}")
+  def getEvents(){
+    return this.get("event")
   }
 
   def getEvent( String eventKey){

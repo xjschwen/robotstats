@@ -37,7 +37,7 @@ task toa_allevents () {
   doLast {
     def eventProcessor = new ToaEventProcessor(buildDir.toString())
     def toa = new ToaRestClient ()
-    toa.get("event").each {e ->
+    toa.getEvents().each {e ->
       if (e.event_key.contains ("FIM")) {
         println ("fetching ${e.event_key}")
         eventProcessor.process(e.event_key)
