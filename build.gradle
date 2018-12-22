@@ -48,6 +48,23 @@ task toa_allevents () {
   }
 }
 
+task toa_states () {
+  group "FTC - Titainum Trojans"
+  description "lists all fim events from TOA."
+  doLast {
+    def eventProcessor = new ToaEventProcessor(buildDir.toString())
+    def toa = new ToaRestClient ()
+    toa.getEvents().each {e ->
+      if (e.event_key.contains ("1819-FIM-CMP")) {
+        println ("fetching ${e.event_key}")
+        eventProcessor.process(e.event_key)
+        sleep(6000)
+      }
+    }
+  }
+}
+
+
 task toa_listregions () {
   group "FTC - Titainum Trojans"
   description "lists all of the FTC regions in the TOA"
