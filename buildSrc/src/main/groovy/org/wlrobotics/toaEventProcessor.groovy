@@ -22,24 +22,29 @@ class ToaEventProcessor extends Object {
     def toa = new ToaRestClient()
     def event =  new EventData (eventKey)
     def matchFactory = new ToaMatchDataFactory(event.eventKey)
+    event.teams = toa.getTeams(event.eventKey)
+    event.oprCalc = new OprCalculator(event.teams)
     this.eventRaw = toa.getEvent(event.eventKey)
     this.matchesRaw = toa.getMatches(event.eventKey)
     this.matchesDetailsRaw =toa.getMatchesDetails(event.eventKey)
     event.city = this.eventRaw.city.toString()[1..-2].replace(" ","")
     this.matchesRaw.each {mr ->
+      def matchDataRed = matchFactory.getMatch(mr.match_key)
       def matchDataBlue = matchFactory.getMatch(mr.match_key)
       matchDataBlue.teams =  getTeams(mr.participants, "B")
       matchDataBlue.color = "blue"
       matchDataBlue.score = mr.blue_score
+      matchDataBlue.opponents_score = mr.red_score
       //println matchesDetailRaw
       matchDataBlue.matchData = getMatchDetails(mr.match_key, "B")
 
       event.addMatch(matchDataBlue)
 
-      def matchDataRed = matchFactory.getMatch(mr.match_key)
+
       matchDataRed.teams =  getTeams(mr.participants, "R")
       matchDataRed.color = "red"
       matchDataRed.score = mr.red_score
+      matchDataRed.opponents_score = mr.blue_score
       matchDataRed.matchData = getMatchDetails(mr.match_key, "R")
       event.addMatch(matchDataRed)
     }

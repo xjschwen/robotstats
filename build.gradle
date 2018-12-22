@@ -16,18 +16,19 @@ task toa_event () {
 
   doLast {
     def eventProcessor = new ToaEventProcessor(buildDir.toString())
-    eventProcessor.process("1819-FIM-Q12")
+    eventProcessor.process("1819-FIM-Q3")
   }
 }
 
 task toa () {
   doLast {
     def toa = new ToaRestClient ()
-    toa.get("event").each {e ->
-      if (e.event_key.contains ("FIM")) {
-        println (e)
-      }
-    }
+    def matchFactory = new ToaMatchDataFactory("1819-FIM-Q3")
+    def matchDataRed = matchFactory.getMatch("1819-FIM-Q3-Q007-1")
+    def oprCalc = new OprCalculator(toa.getTeams("1819-FIM-Q3"))
+    matchDataRed.teams = [3668, 9999, 2333]
+    matchDataRed.score = 300
+    oprCalc.addMatch(matchDataRed)
   }
 }
 

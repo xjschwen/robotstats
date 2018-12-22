@@ -5,6 +5,7 @@ abstract class BaseMatchData extends Object {
   def teams = [:]
   def matchData = null
   int score = 0
+  int opponents_score = 0
   String color = "purple"
 
   def setMatchData (teams = [:], score, color, matchData){
@@ -21,6 +22,7 @@ abstract class BaseMatchData extends Object {
     retValue += "," + "Team 2"
     retValue += "," + "Team 3"
     retValue += "," + "Score"
+    retValue += "," + "Opponents Score"
     matchData.each {k,v ->
       retValue += "," + k
     }
@@ -39,6 +41,7 @@ abstract class BaseMatchData extends Object {
     }
 
     retValue += "," + score
+    retValue += "," + opponents_score
     translateMatchData()
     matchData.each {k,v ->
       retValue += "," + v
