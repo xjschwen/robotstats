@@ -1,0 +1,41 @@
+mkdir buildDir
+
+task tba () {
+  doLast {
+    def tba = new TbaRestClient()
+    println tba.getEvent("2018milan")
+  }
+}
+
+task tba_event () {
+  group "FRC - The TroBots"
+  description "Pulls data for a single event from TBA."
+  doLast {
+    def tbaProcessor = new TbaEventProcessor(buildDir.toString())
+    tbaProcessor.process("2018milan")
+  }
+}
+
+task tba_allevents () {
+  group "FRC - The TroBots"
+  description "Pulls data for a all events for this season."
+  doLast {
+    def tbaProcessor = new TbaEventProcessor(buildDir.toString())
+    def tba = new TbaRestClient()
+    tba.getEvents("2018fim").each { event ->
+      tbaProcessor.process(event.key)
+    }
+  }
+}
+
+task tba_listEvents () {
+  group "FRC - The TroBots"
+  description "Prints Event Keys for this season."
+  doLast {
+    def tba = new TbaRestClient()
+    //println (tba.getDistricts())
+    tba.getEvents("2019fim").each { event ->
+      println (event.key)
+    }
+  }
+}

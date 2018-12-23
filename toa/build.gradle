@@ -1,0 +1,81 @@
+mkdir buildDir
+
+int globalSleepTime = 10000
+
+task toa_event () {
+  group "FTC - Titainum Trojans"
+  description "Pulls data for a single event from TOA."
+
+  doLast {
+    def eventProcessor = new ToaEventProcessor(buildDir.toString())
+    eventProcessor.process("1819-FIM-Q3")
+  }
+}
+
+task toa () {
+  group "FTC - Titainum Trojans"
+  description "Test task for testing new features and calculations."
+  doLast {
+  }
+}
+
+task toa_allevents () {
+  group "FTC - Titainum Trojans"
+  description "lists all fim events from TOA."
+  doLast {
+    def eventProcessor = new ToaEventProcessor(buildDir.toString())
+    def toa = new ToaRestClient ()
+    toa.getEvents().each {e ->
+      if (e.event_key.contains ("FIM")) {
+        println ("fetching ${e.event_key}")
+        eventProcessor.process(e.event_key)
+        sleep(globalSleepTime)
+      }
+    }
+  }
+}
+
+task toa_states () {
+  group "FTC - Titainum Trojans"
+  description "lists all fim events from TOA."
+  doLast {
+    def eventProcessor = new ToaEventProcessor(buildDir.toString())
+    def toa = new ToaRestClient ()
+    toa.getEvents().each {e ->
+      if (e.event_key.contains ("1819-FIM-CMP")) {
+        println ("fetching ${e.event_key}")
+        eventProcessor.process(e.event_key)
+        sleep(globalSleepTime)
+      }
+    }
+  }
+}
+
+
+task toa_listregions () {
+  group "FTC - Titainum Trojans"
+  description "lists all of the FTC regions in the TOA"
+  doLast {
+    def toa = new ToaRestClient()
+    toa.getRegions().each {r ->
+      r.each {k,v  ->
+        print "$k:  $v".padRight(20)
+      }
+      println ""
+    }
+  }
+}
+
+task toa_listseasons () {
+  group "FTC - Titainum Trojans"
+  description "lists all of the FTC seasons in the TOA"
+  doLast {
+    def toa = new ToaRestClient()
+    toa.getSeasons().each {s ->
+      s.each {k,v  ->
+        print ("$k:  $v".padRight(34))
+      }
+      println ""
+    }
+  }
+}
