@@ -23,7 +23,7 @@ class ToaEventProcessor extends Object {
     def event =  new EventData (eventKey)
     def matchFactory = new ToaMatchDataFactory(event.eventKey)
     event.teams = toa.getTeams(event.eventKey)
-    event.oprCalc = new OprCalculator(event.teams)
+    //event.oprCalc = new OprCalculator(event.teams)
     this.eventRaw = toa.getEvent(event.eventKey)
     this.matchesRaw = toa.getMatches(event.eventKey)
     this.matchesDetailsRaw =toa.getMatchesDetails(event.eventKey)

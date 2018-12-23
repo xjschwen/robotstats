@@ -4,8 +4,8 @@ abstract class BaseMatchData extends Object {
   String matchKey = null
   def teams = [:]
   def matchData = null
-  int score = 0
-  int opponents_score = 0
+  def score = 0
+  def opponents_score = 0
   String color = "purple"
 
   def setMatchData (teams = [:], score, color, matchData){

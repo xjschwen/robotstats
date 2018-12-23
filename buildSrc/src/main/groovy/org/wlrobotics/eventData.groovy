@@ -7,14 +7,14 @@ class EventData extends Object {
   def matches = []
   def teams = []
   String city = null
-  OprCalculator oprCalc = null
+  // OprCalculator oprCalc = null
 
   EventData (String key) {
     this.eventKey = key
   }
   def addMatch (Object match) {
     this.matches.add (match)
-    this.oprCalc.addMatch(match)
+    //this.oprCalc.addMatch(match)
   }
 
   String toString (){

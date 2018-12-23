@@ -42,7 +42,7 @@ task toa_allevents () {
       if (e.event_key.contains ("FIM")) {
         println ("fetching ${e.event_key}")
         eventProcessor.process(e.event_key)
-        sleep(6000)
+        sleep(10000)
       }
     }
   }
