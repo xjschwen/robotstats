@@ -26,4 +26,9 @@ dependencies {
   compile   group: 'org.codehaus.groovy.modules.http-builder', name: 'http-builder', version: '0.7.1'
   runtime   group: 'org.codehaus.groovy.modules.http-builder', name: 'http-builder', version: '0.7.1'
 
+  // https://mvnrepository.com/artifact/org.jblas/jblas
+  compile group: 'org.jblas', name: 'jblas', version: '1.2.4'
+  runtime group: 'org.jblas', name: 'jblas', version: '1.2.4'
+
+
 }

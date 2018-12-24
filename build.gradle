@@ -10,3 +10,20 @@ wrapper {
     gradleVersion = "4.10.2"
 }
 
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+  // https://mvnrepository.com/artifact/org.jblas/jblas
+  runtime group: 'org.jblas', name: 'jblas', version: '1.2.4'
+}
+
+
+task test_jblas (type: JavaExec) {
+    group "jblas"
+    description "Executes a JBlas benchmark which makes sure that jblas can run without error"
+    //jblas is java wrapper for Matrix Math Lib for calculating OPR with Groovy
+    classpath = sourceSets.main.runtimeClasspath
+    main = 'org.jblas.benchmark.Main'
+}
