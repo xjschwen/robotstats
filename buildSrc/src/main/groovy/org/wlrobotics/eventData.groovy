@@ -5,17 +5,24 @@ class EventData extends Object {
   String eventKey = null
   def columns = []
   def matches = []
-  def teams = []
+  def teams = [:]
   String city = null
-  // OprCalculator oprCalc = null
+  OprCalculator oprCalc = null
 
   EventData (String key) {
     this.eventKey = key
   }
+
+
   def addMatch (Object match) {
     this.matches.add (match)
-    //this.oprCalc.addMatch(match)
   }
+
+  void calculateOPRs(){
+    this.oprCalc = new OprCalculator(matches, teams)
+    
+  }
+
 
   String toString (){
     //the toString method will possibly add columns to the data that need to be

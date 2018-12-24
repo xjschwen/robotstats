@@ -50,4 +50,8 @@ class TbaRestClient extends RESTClient {
     this.get ("event/${eventKey}/matches")
   }
 
+  def getEventTeamsSimple (String eventKey){
+    this.get ("event/${eventKey}/teams/simple")
+  }
+
 }

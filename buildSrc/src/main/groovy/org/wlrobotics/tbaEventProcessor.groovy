@@ -13,6 +13,12 @@ class TbaEventProcessor extends Object {
     def event =  new EventData (eventKey)
     def matchFactory = new TbaMatchDataFactory(event.eventKey)
     eventRaw = tba.getEvent(event.eventKey)
+
+    tba.getEventTeamsSimple (event.eventKey).each { t ->
+      event.teams[t.key] = new SimpleTeamData (t)
+    }
+
+    
     event.city = eventRaw.city
     event.city = this.eventRaw.city.toString().replace(" ","")
     tba.getMatchDataAll(event.eventKey).each { matchDataRaw ->
@@ -24,15 +30,18 @@ class TbaEventProcessor extends Object {
       matchDataBlue.score = matchDataRaw.alliances.blue.score
       matchDataBlue.color = "blue"
       matchDataBlue.matchData = matchDataRaw.score_breakdown.blue
+      matchDataBlue.opponents_score = matchDataRaw.alliances.red.score
       event.addMatch(matchDataBlue)
 
       def matchDataRed = matchFactory.getMatch(matchDataRaw.key)
       matchDataRed.teams = matchDataRaw.alliances.red.team_keys
       matchDataRed.score = matchDataRaw.alliances.red.score
+      matchDataRed.opponents_score = matchDataRaw.alliances.blue.score
       matchDataRed.color = "red"
       matchDataRed.matchData = matchDataRaw.score_breakdown.red
       event.addMatch(matchDataRed)
     }
+    event.calculateOPRs()
     event.write(buildDir)
   }
 }
