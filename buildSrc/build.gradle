@@ -1,5 +1,7 @@
+apply plugin: 'base'
 apply plugin: 'groovy'
 apply plugin: 'java'
+
 
 //These are the dependancies for the parent build.gradle script
 // contained in buildSrc directory tree
@@ -17,18 +19,13 @@ repositories {
 
 dependencies {
 
-  compile  group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.25'
-  runtime  group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.25'
-
-  compile  group: 'commons-cli', name: 'commons-cli', version: '1.4'
-  runtime  group: 'commons-cli', name: 'commons-cli', version: '1.4'
-
-  compile   group: 'org.codehaus.groovy.modules.http-builder', name: 'http-builder', version: '0.7.1'
-  runtime   group: 'org.codehaus.groovy.modules.http-builder', name: 'http-builder', version: '0.7.1'
+  implementation  group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.25'
+  implementation  group: 'commons-cli', name: 'commons-cli', version: '1.4'
+  
 
   // https://mvnrepository.com/artifact/org.jblas/jblas
-  compile group: 'org.jblas', name: 'jblas', version: '1.2.4'
-  runtime group: 'org.jblas', name: 'jblas', version: '1.2.4'
+  implementation group: 'org.jblas', name: 'jblas', version: '1.2.4' 
+  //runtime group: 'org.jblas', name: 'jblas', version: '1.2.4' 
+  
 
-
-}
+  }

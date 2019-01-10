@@ -1,13 +1,14 @@
 apply plugin: 'base'
 apply plugin: 'groovy'
 apply plugin: 'java'
-apply plugin: 'application'
+//apply plugin: 'application'
 
 mkdir buildDir
 
 wrapper {
     distributionType = Wrapper.DistributionType.ALL
     gradleVersion = "4.10.2"
+    
 }
 
 repositories {
@@ -15,10 +16,26 @@ repositories {
 }
 
 dependencies {
-  // https://mvnrepository.com/artifact/org.jblas/jblas
-  runtime group: 'org.jblas', name: 'jblas', version: '1.2.4'
+    // https://mvnrepository.com/artifact/org.jblas/jblas
+    implementation group: 'org.jblas', name: 'jblas', version: '1.2.4'
+
+    // https://mvnrepository.com/artifact/org.codehaus.groovy/groovy
+    implementation  group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.5.5'
+    implementation  group: 'org.codehaus.groovy.modules.http-builder', name: 'http-builder', version: '0.7.1'
+
+    //testCompile 
+
+
 }
 
+sourceSets {
+    test {
+        java.srcDir file('src/test/groovy/org/wlrobotics')
+        resources.srcDir file('src/test/groovy/org/wlrobotics/resources')
+        compileClasspath += sourceSets.main.output + configurations.testRuntimeClasspath
+        runtimeClasspath += output + compileClasspath
+    }
+}
 
 task test_jblas (type: JavaExec) {
     group "jblas"
@@ -26,4 +43,10 @@ task test_jblas (type: JavaExec) {
     //jblas is java wrapper for Matrix Math Lib for calculating OPR with Groovy
     classpath = sourceSets.main.runtimeClasspath
     main = 'org.jblas.benchmark.Main'
+}
+
+task list_configs (){
+     doLast { 
+        configurations.each { println it }
+    }
 }
