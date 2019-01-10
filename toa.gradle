@@ -33,8 +33,6 @@ task toa_states () {
     
     }
   }
-}
-
 
 task toa_listregions () {
   group "FTC - Titainum Trojans"

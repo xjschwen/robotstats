@@ -1,7 +1,8 @@
 apply plugin: 'base'
 apply plugin: 'groovy'
 apply plugin: 'java'
-//apply plugin: 'application'
+apply from: "tba.gradle"
+apply from: "toa.gradle"
 
 mkdir buildDir
 

@@ -1,5 +1,5 @@
 mkdir buildDir
-
+/*
 task tba () {
   doLast {
     def tba = new TbaRestClient()
@@ -39,3 +39,4 @@ task tba_listEvents () {
     }
   }
 }
+*/
