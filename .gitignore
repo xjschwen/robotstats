@@ -6,3 +6,4 @@ local.properties
 **/.settings/**
 .classpath
 **/bin/**
+DataResults/**
