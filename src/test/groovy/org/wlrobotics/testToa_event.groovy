@@ -1,6 +1,6 @@
-
-import org.wlrobotics.ToaRestClient
-import org.wlrobotics.ToaEventProcessor
+package test.groovy.org.wlrobotics
+import main.groovy.org.wlrobotics.ToaRestClient
+import main.groovy.org.wlrobotics.ToaEventProcessor
 
 
 

@@ -1,4 +1,5 @@
-import org.wlrobotics.ToaRestClient
+package test.groovy.org.wlrobotics
+import main.groovy.org.wlrobotics.ToaRestClient
 
 class testToaListSeasons {
     

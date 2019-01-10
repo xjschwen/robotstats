@@ -1,3 +1,4 @@
+package main.groovy.org.wlrobotics
 class MatchXXXXData extends BaseMatchData {
 
   MatchXXXXData (String eventKey, String matchKey) {

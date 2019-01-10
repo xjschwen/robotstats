@@ -1,3 +1,4 @@
+package main.groovy.org.wlrobotics
 class Match1819RoverRuckusData extends BaseMatchData {
 
   Match1819RoverRuckusData (String eventKey, String matchKey) {

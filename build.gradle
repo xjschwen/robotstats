@@ -18,11 +18,15 @@ repositories {
 
 dependencies {
     // https://mvnrepository.com/artifact/org.jblas/jblas
-    implementation group: 'org.jblas', name: 'jblas', version: '1.2.4'
+    compileClasspath group: 'org.jblas', name: 'jblas', version: '1.2.4'
+    runtime group: 'org.jblas', name: 'jblas', version: '1.2.4'
 
     // https://mvnrepository.com/artifact/org.codehaus.groovy/groovy
-    implementation  group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.5.5'
-    implementation  group: 'org.codehaus.groovy.modules.http-builder', name: 'http-builder', version: '0.7.1'
+    compileClasspath  group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.5.5'
+    runtime  group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.5.5'
+    
+    compileClasspath  group: 'org.codehaus.groovy.modules.http-builder', name: 'http-builder', version: '0.7.1'
+    runtime  group: 'org.codehaus.groovy.modules.http-builder', name: 'http-builder', version: '0.7.1'
 
     //testCompile 
 

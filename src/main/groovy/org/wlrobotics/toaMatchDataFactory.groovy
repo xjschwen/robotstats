@@ -1,3 +1,5 @@
+package main.groovy.org.wlrobotics
+
 class ToaMatchDataFactory extends Object {
   String yearKey = null
   String eventKey = null

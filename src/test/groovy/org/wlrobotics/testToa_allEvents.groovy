@@ -1,6 +1,8 @@
-import org.wlrobotics.ToaRestClient
-import org.wlrobotics.ToaEventProcessor
-import org.wlrobotics.ToaGlobalSettings
+package test.groovy.org.wlrobotics
+
+import main.groovy.org.wlrobotics.ToaRestClient
+import main.groovy.org.wlrobotics.ToaEventProcessor
+import main.groovy.org.wlrobotics.ToaGlobalSettings
 
 
 class testToa_allEvents {

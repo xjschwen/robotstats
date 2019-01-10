@@ -1,3 +1,4 @@
+package main.groovy.org.wlrobotics
 class TbaMatchDataFactory extends Object {
   String yearKey = null
   String eventKey = null

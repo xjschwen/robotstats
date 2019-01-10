@@ -1,3 +1,5 @@
+package main.groovy.org.wlrobotics
+
 abstract class BaseMatchData extends Object {
 
   String eventKey = null

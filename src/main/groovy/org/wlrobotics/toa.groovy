@@ -1,3 +1,5 @@
+package main.groovy.org.wlrobotics
+
 import groovyx.net.http.HTTPBuilder
 import groovy.json.JsonSlurper
 import groovyx.net.http.RESTClient
