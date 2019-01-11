@@ -1,4 +1,6 @@
 package main.groovy.org.wlrobotics
+import org.wlrobotics.common.*
+
 class Match2018PowerUpData extends BaseMatchData {
 
   Match2018PowerUpData (String eventKey, String matchKey) {

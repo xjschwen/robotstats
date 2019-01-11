@@ -1,4 +1,6 @@
 package main.groovy.org.wlrobotics
+import org.wlrobotics.common.*
+
 import groovyx.net.http.HTTPBuilder
 
 

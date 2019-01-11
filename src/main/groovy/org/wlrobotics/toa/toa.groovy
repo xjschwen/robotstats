@@ -1,5 +1,7 @@
 package main.groovy.org.wlrobotics
 
+import org.wlrobotics.common.*
+
 import java.util.Date
 import groovyx.net.http.HTTPBuilder
 import groovy.json.JsonSlurper
@@ -45,7 +47,6 @@ class ToaRestClient extends RESTClient {
       sleep(1000)
     }
   }
-
 
   //overload the get to only return the json elements
   def get (String path) {

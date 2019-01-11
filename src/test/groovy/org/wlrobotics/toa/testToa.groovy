@@ -1,9 +1,7 @@
 package test.groovy.org.wlrobotics
 
-import main.groovy.org.wlrobotics.ToaRestClient
-import main.groovy.org.wlrobotics.ToaEventProcessor
-import main.groovy.org.wlrobotics.ToaGlobalSettings
-
+import main.groovy.org.wlrobotics.*
+import main.groovy.org.wlrobotics.common.*
 import test.groovy.org.wlrobotics.toaTestSettings
 
 import org.junit.Test
@@ -11,11 +9,10 @@ import static groovy.test.GroovyAssert.shouldFail
 
 
 class testToa {
-    
+    def toa = new ToaRestClient()
     @Test
     void getRegions (){
         println ("\ngetRegions\n")
-        def toa = new ToaRestClient()
         toa.getRegions().each {r ->
             r.each {k,v  ->
                 print "$k:  $v".padRight(20)
@@ -27,7 +24,6 @@ class testToa {
     @Test
     void getSeasons (){
         println ("\ngetSeasons\n")
-        def toa = new ToaRestClient()
         toa.getSeasons().each {s ->
             s.each {k,v  ->
                 print ("$k:  $v".padRight(34))
@@ -39,7 +35,6 @@ class testToa {
     @Test
     void getTeams (){
         println ("\ngetTeams\n")
-        def toa = new ToaRestClient()
         toa.getTeams("1819-FIM-Q4").each {t ->
             println ("${t.team_number}".padLeft(6) + ":\t" + t.team.team_name_short)
         }
@@ -48,7 +43,6 @@ class testToa {
     @Test 
     void getEvents(){
         println ("\ngetEvents\n")
-        def toa = new ToaRestClient ()
         toa.getEvents().each {e ->
             if (e.event_key.contains ("FIM")) {
                 println ("${e.event_key}")
@@ -60,7 +54,6 @@ class testToa {
     @Test    
     void getEvent(){
         println ("\ngetEvent\n")
-        def toa = new ToaRestClient ()
         def e = (toa.getEvent(toaTestSettings.testEventKey))
         println ("event_key $e.event_key")
         println ("season_key $e.season_key")
@@ -73,7 +66,6 @@ class testToa {
     @Test
     void getMatches (){
         println ("\ngetMatches\n")
-        def toa = new ToaRestClient ()
         toa.getMatches(toaTestSettings.testEventKey).each {m ->
             println ("${m.match_key}".padRight(20) + 
                     "\tblue:" + "${m.blue_score}".padRight(3) + 
@@ -84,7 +76,6 @@ class testToa {
     @Test
     void  getMatchesDetails(){
         println ("\ngetMatchesDetails\n")
-        def toa = new ToaRestClient ()
         def matchesDetails = toa.getMatchesDetails(toaTestSettings.testEventKey)
 
         matchesDetails.each {m ->
@@ -96,7 +87,6 @@ class testToa {
     }
 
     void testRateLimit () {
-        def toa = new ToaRestClient ()
         for (int i = 0; i < toa.TOACall_limit + 2; i++ ) {
             toa.getSeasons()
         }

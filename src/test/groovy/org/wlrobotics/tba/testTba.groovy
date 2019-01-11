@@ -1,19 +1,20 @@
 package test.groovy.org.wlrobotics
 
-import main.groovy.org.wlrobotics.TbaRestClient
-import test.groovy.org.wlrobotics.tbaTestSettings
+import main.groovy.org.wlrobotics.*
+import main.groovy.org.wlrobotics.common.*
+
+import test.groovy.org.wlrobotics.tba.tbaTestSettings
 
 import org.junit.Test
 import static groovy.test.GroovyAssert.shouldFail
 
 
 class testTba {
+    def tba = new TbaRestClient()
 
     @Test
     void getDistricts (){
         println ("\ngetDistricts\n")
-        def tba = new TbaRestClient()
-
         tba.getDistricts().each { d->
             print ("abbreviation: ${d.abbreviation}")
             //print ("\tdisplay_name:\t ${d.display_name}")
@@ -25,7 +26,6 @@ class testTba {
     @Test
     void getEvent () {
         println ("\ngetEvent\n")
-        def tba = new TbaRestClient()
         def e = tba.getEvent(tbaTestSettings.testEventKey)   
 
         print ("key:\t${e.key}")    
@@ -39,7 +39,6 @@ class testTba {
     void getEvents (){
         // return (this.get("district/${district_key}/events"))
         println ("\ngetEvents\n")
-        def tba = new TbaRestClient()
         def events = tba.getEvents(tbaTestSettings.testDistrictKey)   
         events.each {e -> 
             
@@ -53,7 +52,7 @@ class testTba {
     void getMatchKeys(){
         // return (this.get("event/${event_key}/matches/keys"))
         println ("\ngetMatchKeys\n")
-        def tba = new TbaRestClient()
+
         def matchKeys = tba.getMatchKeys(tbaTestSettings.testEventKey)   
         matchKeys.each { mk ->
             println (mk)
@@ -65,7 +64,6 @@ class testTba {
     void getMatchData(){
         // return (this.get("match/${match_key}"))
         println ("\ngetMatchData\n")
-        def tba = new TbaRestClient()
         def md = tba.getMatchData(tbaTestSettings.testMatchKey)
         def blue = md.alliances.blue
         def red = md.alliances.red
@@ -87,7 +85,6 @@ class testTba {
     void getMatchDataAll (){
         //this.get ("event/${eventKey}/matches")
         println ("\ngetMatchDataAll\n")
-        def tba = new TbaRestClient()
         def md = tba.getMatchDataAll(tbaTestSettings.testEventKey)
         md.each {m ->
             def blue = m.alliances.blue
@@ -112,7 +109,6 @@ class testTba {
     void  getEventTeamsSimple (){
         //this.get ("event/${eventKey}/teams/simple")
         println ("\ngetMatchDataAll\n")
-        def tba = new TbaRestClient()
         def teams = tba.getEventTeamsSimple(tbaTestSettings.testEventKey)
         println "Teams at ${tbaTestSettings.testEventKey}"
         teams.each { t ->

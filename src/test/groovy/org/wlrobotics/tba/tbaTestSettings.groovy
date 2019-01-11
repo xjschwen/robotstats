@@ -1,4 +1,4 @@
-package test.groovy.org.wlrobotics
+package test.groovy.org.wlrobotics.tba
 
 
 class tbaTestSettings {

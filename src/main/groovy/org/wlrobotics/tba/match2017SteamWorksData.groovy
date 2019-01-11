@@ -1,4 +1,6 @@
 package main.groovy.org.wlrobotics
+import org.wlrobotics.common.*
+
 class Match2017SteamWorksData extends BaseMatchData {
 
   Match2017SteamWorksData (String eventKey, String matchKey) {
