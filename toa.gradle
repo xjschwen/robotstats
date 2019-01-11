@@ -1,28 +1,36 @@
 
 def dataDir = "${buildDir.toString()}/data/toa"
-mkdir dataDir
+
+
+task makeDataDir () {
+  doLast {
+    mkdir dataDir
+  }
+}
 
 task toa () {
   group "FTC - Titainum Trojans"
   description "Test task for testing new features and calculations."
+  dependsOn makeDataDir
   doLast {
   }
 }
 
 task toa_allevents (type: JavaExec) {
   group "FTC - Titainum Trojans"
-  description "lists all fim events from TOA."
+  description "lists all FIM events from TOA."
+  dependsOn makeDataDir
   classpath = sourceSets.main.runtimeClasspath
   main = 'org.wlrobotics.toa.GetAllEventData'
   // args [0] = directory to write the cvs file
   // args [1] = filter for event key to write.
   args dataDir, "1819-FIM" 
-
 }
 
 task toa_event (type: JavaExec) {
   group "FTC - Titainum Trojans"
-  description "lists all fim events from TOA."
+  description "lists all FIM events from TOA."
+  dependsOn makeDataDir
   classpath = sourceSets.main.runtimeClasspath
   main = 'org.wlrobotics.toa.GetAllEventData'
   // args [0] = directory to write the cvs file
@@ -32,7 +40,8 @@ task toa_event (type: JavaExec) {
 
 task toa_states (type: JavaExec) {
   group "FTC - Titainum Trojans"
-  description "lists all fim events from TOA."
+  description "lists all FIM events from TOA."
+  dependsOn makeDataDir
   classpath = sourceSets.main.runtimeClasspath
   main = 'org.wlrobotics.toa.GetAllEventData'
   // args [0] = directory to write the cvs file
@@ -43,6 +52,7 @@ task toa_states (type: JavaExec) {
 task toa_regions (type: JavaExec) {
   group "FTC - Titainum Trojans"
   description "lists all of the FTC regions in the TOA"
+  dependsOn makeDataDir
   classpath = sourceSets.main.runtimeClasspath
   main = 'org.wlrobotics.toa.GetRegions'
 }
@@ -50,6 +60,7 @@ task toa_regions (type: JavaExec) {
 task toa_seasons (type: JavaExec) {
   group "FTC - Titainum Trojans"
   description "lists all of the FTC seasons in the TOA"
+  dependsOn makeDataDir
   classpath = sourceSets.main.runtimeClasspath
   main = 'org.wlrobotics.toa.GetTOASeasons'
 }

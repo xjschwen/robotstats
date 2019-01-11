@@ -14,8 +14,8 @@ class ToaRestClient extends RESTClient {
   
   // The Orange Alliance limits people to 30 calls per minute... 
   // the values below limit things to 30 calls in 61 seconds...
-  final int TOACall_limit = 30
-  final int TOACall_limit_mSec = 61000
+  final long TOACall_limit = 30
+  final long TOACall_limit_Sec = 61000
   
   def ToaRestClient() {
     String base = "https://theorangealliance.org/api/"
@@ -31,27 +31,39 @@ class ToaRestClient extends RESTClient {
   }
 
   boolean check_TOACalls(long currTime) {
-    lastCalls_queue.each {t ->
-      if (currTime > (t + TOACall_limit_mSec)){
+    int qSize = lastCalls_queue.size()
+    int i = 0
+
+    if (lastCalls_queue.size() > 0 ){
+      if (currTime > (lastCalls_queue.peek() + TOACall_limit_Sec)){
         lastCalls_queue.remove()
       }
     }
+
     return (lastCalls_queue.size() < TOACall_limit)
   }
 
-  void waitCallLimit (long currTime) {
+  void waitCallLimit () {
+    def d = new Date ()
+    long currTime = d.getTime()
+    int loopCounter = 0
     while (! check_TOACalls(currTime)){
-      println "INFO: Waiting on TOA Call Limit to be less than ${TOACall_limit}"
+      loopCounter ++
+      if (loopCounter > 9){
+          println "INFO: Waiting on TOA Call Limit.  ${d.toString()}"
+          loopCounter = 0
+      }
       sleep(1000)
+      d = new Date ()
+      currTime = d.getTime()
     }
+    lastCalls_queue.add (currTime)
   }
 
   //overload the get to only return the json elements
   def get (String path) {
-    def d = new Date()
-    def currTime = d.getTime()
-    waitCallLimit (currTime)
-    lastCalls_queue.add (currTime)
+
+    waitCallLimit ()
     // There is still a chance that we will exceed the TOA Rate Limit if the program
     // is run or testest 2 times in the same minute.
     super.get(path:path)  {response, json ->

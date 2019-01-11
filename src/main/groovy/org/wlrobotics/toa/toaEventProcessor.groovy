@@ -9,19 +9,21 @@ class ToaEventProcessor extends Object {
   def matchesDetailsRaw = null
   def eventRaw = null
 
+  ToaRestClient toa = null
+
+
   enum Alliance {
     RED,
     BLUE
   }
 
-  ToaEventProcessor (String outDir ) {
+  ToaEventProcessor (String outDir, ToaRestClient t ) {
     buildDir = outDir
-
+    this.toa = t
   }
 
   def process(String eventKey) {
 
-    def toa = new ToaRestClient()
     def event =  new EventData (eventKey)
     def matchFactory = new ToaMatchDataFactory(event.eventKey)
     event.teams = toa.getTeams(event.eventKey)
