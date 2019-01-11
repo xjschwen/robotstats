@@ -1,6 +1,7 @@
-package main.groovy.org.wlrobotics
+package org.wlrobotics.tba
 
-import org.wlrobotics.common.*
+import org.wlrobotics.common.EventData
+import org.wlrobotics.common.SimpleTeamData
 
 class TbaEventProcessor extends Object {
 

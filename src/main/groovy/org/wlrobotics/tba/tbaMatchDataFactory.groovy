@@ -1,6 +1,6 @@
-package main.groovy.org.wlrobotics
+package org.wlrobotics.tba
 
-import org.wlrobotics.common.*
+import org.wlrobotics.common.MatchXXXXData
 
 class TbaMatchDataFactory extends Object {
   String yearKey = null

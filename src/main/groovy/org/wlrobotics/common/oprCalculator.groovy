@@ -1,5 +1,5 @@
 
-package main.groovy.org.wlrobotics
+package org.wlrobotics.common
 import org.jblas.*
 // import groovyx.org.slf4j
 

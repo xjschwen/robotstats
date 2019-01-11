@@ -1,9 +1,7 @@
-package main.groovy.org.wlrobotics
-import org.wlrobotics.common.*
+package org.wlrobotics.tba
+
 
 import groovyx.net.http.HTTPBuilder
-
-
 import groovyx.net.http.RESTClient
 import groovyx.net.http.URIBuilder
 import groovyx.net.http.ContentType

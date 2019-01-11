@@ -1,5 +1,5 @@
-package main.groovy.org.wlrobotics
-import org.wlrobotics.common.*
+package org.wlrobotics.toa
+import org.wlrobotics.common.EventData
 import groovy.json.JsonSlurper
 
 class ToaEventProcessor extends Object {

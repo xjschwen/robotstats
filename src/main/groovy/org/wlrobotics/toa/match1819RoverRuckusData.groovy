@@ -1,5 +1,5 @@
-package main.groovy.org.wlrobotics
-import org.wlrobotics.common.*
+package org.wlrobotics.toa
+import org.wlrobotics.common.BaseMatchData
 class Match1819RoverRuckusData extends BaseMatchData {
 
   Match1819RoverRuckusData (String eventKey, String matchKey) {

@@ -1,4 +1,4 @@
-package main.groovy.org.wlrobotics
+package org.wlrobotics.common
 class SimpleTeamData extends Object {
 
 String teamKey = ""

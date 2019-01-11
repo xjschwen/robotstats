@@ -1,5 +1,5 @@
-package main.groovy.org.wlrobotics
-import org.wlrobotics.common.*
+package org.wlrobotics.tba
+import org.wlrobotics.common.BaseMatchData
 
 class Match2017SteamWorksData extends BaseMatchData {
 

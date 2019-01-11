@@ -1,8 +1,9 @@
-package test.groovy.org.wlrobotics
+package org.wlrobotics.toa
 
-import main.groovy.org.wlrobotics.*
-import main.groovy.org.wlrobotics.common.*
-import test.groovy.org.wlrobotics.toaTestSettings
+import org.wlrobotics.toa.ToaRestClient
+
+
+import org.wlrobotics.toa.ToaTestSettings
 
 import org.junit.Test
 import static groovy.test.GroovyAssert.shouldFail
@@ -54,7 +55,7 @@ class testToa {
     @Test    
     void getEvent(){
         println ("\ngetEvent\n")
-        def e = (toa.getEvent(toaTestSettings.testEventKey))
+        def e = (toa.getEvent(ToaTestSettings.testEventKey))
         println ("event_key $e.event_key")
         println ("season_key $e.season_key")
         println ("region_key $e.region_key")
@@ -66,7 +67,7 @@ class testToa {
     @Test
     void getMatches (){
         println ("\ngetMatches\n")
-        toa.getMatches(toaTestSettings.testEventKey).each {m ->
+        toa.getMatches(ToaTestSettings.testEventKey).each {m ->
             println ("${m.match_key}".padRight(20) + 
                     "\tblue:" + "${m.blue_score}".padRight(3) + 
                     "\tred:" + "${m.red_score}".padRight(3))
@@ -76,7 +77,7 @@ class testToa {
     @Test
     void  getMatchesDetails(){
         println ("\ngetMatchesDetails\n")
-        def matchesDetails = toa.getMatchesDetails(toaTestSettings.testEventKey)
+        def matchesDetails = toa.getMatchesDetails(ToaTestSettings.testEventKey)
 
         matchesDetails.each {m ->
             print ("match_detail_key: ${m.match_detail_key}")

@@ -1,7 +1,7 @@
-package test.groovy.org.wlrobotics.tba
+package org.wlrobotics.tba
 
 
-class tbaTestSettings {
+class TbaTestSettings {
 
     public static File dataDir = new File ("build/data/test/tba")
     public static String testEventKey = "2018milan"

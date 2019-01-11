@@ -1,6 +1,6 @@
-package main.groovy.org.wlrobotics
+package org.wlrobotics.toa
 
-import org.wlrobotics.common.*
+import org.wlrobotics.common.MatchXXXXData
 
 class ToaMatchDataFactory extends Object {
   String yearKey = null

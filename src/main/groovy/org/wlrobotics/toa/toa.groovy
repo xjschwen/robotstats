@@ -1,6 +1,4 @@
-package main.groovy.org.wlrobotics
-
-import org.wlrobotics.common.*
+package org.wlrobotics.toa
 
 import java.util.Date
 import groovyx.net.http.HTTPBuilder
