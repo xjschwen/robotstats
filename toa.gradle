@@ -1,13 +1,6 @@
-mkdir buildDir
 
-task toa_event () {
-  group "FTC - Titainum Trojans"
-  description "Pulls data for a single event from TOA."
-
-  doLast {
-    
-  }
-}
+def dataDir = "${buildDir.toString()}/data/toa"
+mkdir dataDir
 
 task toa () {
   group "FTC - Titainum Trojans"
@@ -16,43 +9,47 @@ task toa () {
   }
 }
 
-task toa_allevents () {
+task toa_allevents (type: JavaExec) {
   group "FTC - Titainum Trojans"
   description "lists all fim events from TOA."
-  doLast {
-    
-  }
+  classpath = sourceSets.main.runtimeClasspath
+  main = 'org.wlrobotics.toa.GetAllEventData'
+  // args [0] = directory to write the cvs file
+  // args [1] = filter for event key to write.
+  args dataDir, "1819-FIM" 
+
 }
 
-task toa_states () {
+task toa_event (type: JavaExec) {
   group "FTC - Titainum Trojans"
   description "lists all fim events from TOA."
-  doLast {
-    /*
-    def eventProcessor = new ToaEventProcessor(buildDir.toString())
-    def toa = new ToaRestClient ()
-    toa.getEvents().each {e ->
-      if (e.event_key.contains ("1819-FIM-CMP")) {
-        println ("fetching ${e.event_key}")
-        eventProcessor.process(e.event_key)
-        sleep(6000)
-      }
-    } */
-  }
+  classpath = sourceSets.main.runtimeClasspath
+  main = 'org.wlrobotics.toa.GetAllEventData'
+  // args [0] = directory to write the cvs file
+  // args [1] = filter for event key to write.
+  args dataDir, "1819-FIM-Q4" 
 }
 
-task toa_listregions () {
+task toa_states (type: JavaExec) {
+  group "FTC - Titainum Trojans"
+  description "lists all fim events from TOA."
+  classpath = sourceSets.main.runtimeClasspath
+  main = 'org.wlrobotics.toa.GetAllEventData'
+  // args [0] = directory to write the cvs file
+  // args [1] = filter for event key to write.
+  args dataDir, "1819-FIM-CMP" 
+}
+
+task toa_regions (type: JavaExec) {
   group "FTC - Titainum Trojans"
   description "lists all of the FTC regions in the TOA"
-  doLast {
-    
-  }
+  classpath = sourceSets.main.runtimeClasspath
+  main = 'org.wlrobotics.toa.GetRegions'
 }
 
-task toa_listseasons () {
+task toa_seasons (type: JavaExec) {
   group "FTC - Titainum Trojans"
   description "lists all of the FTC seasons in the TOA"
-  doLast {
-    
-  }
+  classpath = sourceSets.main.runtimeClasspath
+  main = 'org.wlrobotics.toa.GetTOASeasons'
 }

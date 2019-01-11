@@ -10,7 +10,7 @@ import groovyx.net.http.ContentType
 
 class ToaRestClient extends RESTClient {
 
-  static def lastCalls_queue = [] as Queue
+  def lastCalls_queue = [] as Queue
   
   // The Orange Alliance limits people to 30 calls per minute... 
   // the values below limit things to 30 calls in 61 seconds...
