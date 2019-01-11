@@ -15,7 +15,6 @@ class testToa {
     @Test
     void getRegions (){
         println ("\ngetRegions\n")
-        sleep(toaTestSettings.globalToaSleepTime)
         def toa = new ToaRestClient()
         toa.getRegions().each {r ->
             r.each {k,v  ->
@@ -28,7 +27,6 @@ class testToa {
     @Test
     void getSeasons (){
         println ("\ngetSeasons\n")
-        sleep(toaTestSettings.globalToaSleepTime)
         def toa = new ToaRestClient()
         toa.getSeasons().each {s ->
             s.each {k,v  ->
@@ -41,7 +39,6 @@ class testToa {
     @Test
     void getTeams (){
         println ("\ngetTeams\n")
-        sleep(toaTestSettings.globalToaSleepTime)
         def toa = new ToaRestClient()
         toa.getTeams("1819-FIM-Q4").each {t ->
             println ("${t.team_number}".padLeft(6) + ":\t" + t.team.team_name_short)
@@ -51,7 +48,6 @@ class testToa {
     @Test 
     void getEvents(){
         println ("\ngetEvents\n")
-        sleep(toaTestSettings.globalToaSleepTime)
         def toa = new ToaRestClient ()
         toa.getEvents().each {e ->
             if (e.event_key.contains ("FIM")) {
@@ -64,7 +60,6 @@ class testToa {
     @Test    
     void getEvent(){
         println ("\ngetEvent\n")
-        sleep(toaTestSettings.globalToaSleepTime)     
         def toa = new ToaRestClient ()
         def e = (toa.getEvent(toaTestSettings.testEventKey))
         println ("event_key $e.event_key")
@@ -78,7 +73,6 @@ class testToa {
     @Test
     void getMatches (){
         println ("\ngetMatches\n")
-        sleep(toaTestSettings.globalToaSleepTime)
         def toa = new ToaRestClient ()
         toa.getMatches(toaTestSettings.testEventKey).each {m ->
             println ("${m.match_key}".padRight(20) + 
@@ -90,7 +84,6 @@ class testToa {
     @Test
     void  getMatchesDetails(){
         println ("\ngetMatchesDetails\n")
-        sleep(toaTestSettings.globalToaSleepTime)     
         def toa = new ToaRestClient ()
         def matchesDetails = toa.getMatchesDetails(toaTestSettings.testEventKey)
 
@@ -101,4 +94,12 @@ class testToa {
         }
 
     }
+
+    void testRateLimit () {
+        def toa = new ToaRestClient ()
+        for (int i = 0; i < toa.TOACall_limit + 2; i++ ) {
+            toa.getSeasons()
+        }
+    }
+
 }
