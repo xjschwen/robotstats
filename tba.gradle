@@ -36,11 +36,13 @@ task tba_allevents (type: JavaExec) {
 task tba_listEvents (type: JavaExec) {
   group "FRC - The TroBots"
   description "Prints Event Keys for this season."
-  doLast {
-    //def tba = new TbaRestClient()
-    //println (tba.getDistricts())
-    //tba.getEvents("2019fim").each { event ->
-    //  println (event.key)
-    //}
-  }
+  classpath = sourceSets.main.runtimeClasspath
+  main = 'org.wlrobotics.tba.ListEvents'
+  // args [0] = Year
+  // args [1] = filter 
+  
+  args "2019", "2019mi"
+
 }
+
+
