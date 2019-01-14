@@ -1,42 +1,46 @@
-mkdir buildDir
-/*
+def dataDirTba = "${buildDir.toString()}/data/tba"
+
+task makeTbaDataDir () {
+  doLast {
+    mkdir dataDirTba
+  }
+}
+
 task tba () {
   doLast {
-    def tba = new TbaRestClient()
-    println tba.getEvent("2018milan")
   }
 }
 
-task tba_event () {
+task tba_event (type: JavaExec) {
   group "FRC - The TroBots"
-  description "Pulls data for a single event from TBA."
-  doLast {
-    def tbaProcessor = new TbaEventProcessor(buildDir.toString())
-    tbaProcessor.process("2018milan")
-  }
+  description "Pulls data for a one event for this season."
+  dependsOn makeTbaDataDir
+  classpath = sourceSets.main.runtimeClasspath
+  main = 'org.wlrobotics.tba.GetAllEventData'
+  // args [0] = directory to write the cvs file
+  // args [1] = filter for event key to write.
+  args dataDirTba, "2018mimil"
 }
 
-task tba_allevents () {
+task tba_allevents (type: JavaExec) {
   group "FRC - The TroBots"
   description "Pulls data for a all events for this season."
-  doLast {
-    def tbaProcessor = new TbaEventProcessor(buildDir.toString())
-    def tba = new TbaRestClient()
-    tba.getEvents("2018fim").each { event ->
-      tbaProcessor.process(event.key)
-    }
-  }
+  dependsOn makeTbaDataDir
+  classpath = sourceSets.main.runtimeClasspath
+  main = 'org.wlrobotics.tba.GetAllEventData'
+  // args [0] = directory to write the cvs file
+  // args [1] = filter for event key to write.
+  args dataDirTba, "2018mi"
 }
 
-task tba_listEvents () {
+task tba_listEvents (type: JavaExec) {
   group "FRC - The TroBots"
   description "Prints Event Keys for this season."
   doLast {
-    def tba = new TbaRestClient()
+    //def tba = new TbaRestClient()
     //println (tba.getDistricts())
-    tba.getEvents("2019fim").each { event ->
-      println (event.key)
-    }
+    //tba.getEvents("2019fim").each { event ->
+    //  println (event.key)
+    //}
   }
 }
-*/

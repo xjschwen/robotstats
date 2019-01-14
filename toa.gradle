@@ -16,17 +16,6 @@ task toa () {
   }
 }
 
-task toa_allevents (type: JavaExec) {
-  group "FTC - Titainum Trojans"
-  description "lists all FIM events from TOA."
-  dependsOn makeDataDir
-  classpath = sourceSets.main.runtimeClasspath
-  main = 'org.wlrobotics.toa.GetAllEventData'
-  // args [0] = directory to write the cvs file
-  // args [1] = filter for event key to write.
-  args dataDir, "1819-FIM" 
-}
-
 task toa_event (type: JavaExec) {
   group "FTC - Titainum Trojans"
   description "lists all FIM events from TOA."
@@ -36,6 +25,17 @@ task toa_event (type: JavaExec) {
   // args [0] = directory to write the cvs file
   // args [1] = filter for event key to write.
   args dataDir, "1819-FIM-Q4" 
+}
+
+task toa_allevents (type: JavaExec) {
+  group "FTC - Titainum Trojans"
+  description "lists all FIM events from TOA."
+  dependsOn makeDataDir
+  classpath = sourceSets.main.runtimeClasspath
+  main = 'org.wlrobotics.toa.GetAllEventData'
+  // args [0] = directory to write the cvs file
+  // args [1] = filter for event key to write.
+  args dataDir, "1819-FIM" 
 }
 
 task toa_states (type: JavaExec) {
