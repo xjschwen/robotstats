@@ -6,9 +6,13 @@ task makeTbaDataDir () {
   }
 }
 
-task tba () {
-  doLast {
-  }
+task tba (type: JavaExec) {
+ group "FRC - The TroBots"
+  description "Testing only for various parts of the software "
+  dependsOn makeTbaDataDir
+  classpath = sourceSets.main.runtimeClasspath
+  main = 'org.wlrobotics.common.DataFileSlurper'
+  args dataDirTba + "/2018mimil_HighlandCharterTownship.csv"
 }
 
 task tba_event (type: JavaExec) {
@@ -32,6 +36,7 @@ task tba_allevents (type: JavaExec) {
   // args [1] = filter for event key to write.
   args dataDirTba, "2018mi"
 }
+
 
 task tba_listEvents (type: JavaExec) {
   group "FRC - The TroBots"
