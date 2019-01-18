@@ -55,8 +55,12 @@ class TbaRestClient extends RESTClient {
     this.get ("event/${eventKey}/matches")
   }
 
-  def getEventTeamsSimple (String eventKey){
-    this.get ("event/${eventKey}/teams/simple")
+  def getEventTeamsSimple (String event_key){
+    this.get ("event/${event_key}/teams/simple")
+  }
+
+  def getEventSimple(String event_key){
+    this.get ("event/${event_key}/simple")
   }
 
 }

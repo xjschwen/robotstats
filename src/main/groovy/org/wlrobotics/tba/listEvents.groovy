@@ -8,7 +8,8 @@ class ListEvents extends Object {
         def year = args[0]
         tba.getEventKeys(year).each {e ->
             if (e.contains (args[1])) {
-                println ("${e}")
+                def simpleEvent = tba.getEventSimple("${e}")
+                println ("${simpleEvent.key.padRight(15)}${simpleEvent?.name}")
             }
         }
     }

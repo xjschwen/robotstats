@@ -41,7 +41,7 @@ task tba_listEvents (type: JavaExec) {
   // args [0] = Year
   // args [1] = filter 
   
-  args "2019", "2019mi"
+  args "2018", "2018mi"
 
 }
 
