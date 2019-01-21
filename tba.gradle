@@ -11,7 +11,7 @@ task tba (type: JavaExec) {
   description "Testing only for various parts of the software "
   dependsOn makeTbaDataDir
   classpath = sourceSets.main.runtimeClasspath
-  main = 'org.wlrobotics.common.DataFileSlurper'
+  main = 'org.wlrobotics.common.OprWrapper'
   args dataDirTba + "/2018mimil_HighlandCharterTownship.csv"
 }
 

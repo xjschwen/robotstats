@@ -18,7 +18,7 @@ class TestDataFileSlurper {
         def eventProcessor = new TbaEventProcessor(TbaTestSettings.dataDir.toString(), tba)
         eventProcessor.process(TbaTestSettings.testEventKey)
 
-        def slurper = new DataFileSlurper()
-        slurper.convert (TbaTestSettings.dataDir.toString() + "/${TbaTestSettings.testFileName}")
+        //def slurper = new DataFileSlurper()
+        DataFileSlurper.convert (TbaTestSettings.dataDir.toString() + "/${TbaTestSettings.testFileName}")
     }
 }
