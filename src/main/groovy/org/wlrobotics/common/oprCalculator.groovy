@@ -1,5 +1,7 @@
 
 package org.wlrobotics.common
+import org.jblas.Solve
+import org.jblas.DoubleMatrix
 import org.jblas.*
 
 import groovy.json.JsonSlurper
@@ -8,25 +10,25 @@ class OprCalculator extends Object {
 
   def  teamsIndex = [:]
   def matchData = null
-  def teamsMatrix = null
+  DoubleMatrix teamsMatrix = null
   
-  def scoreMatrix = null
+  DoubleMatrix scoreMatrix = null
 
   OprCalculator (def matches) {
       def slurper =new JsonSlurper()
       matchData = slurper.parseText(matches)
       populateTeamMatrix()
       populateScoreMatrix ("score")
+      solve()
 
   }
 
   def populateScoreMatrix (String column ) {
     // takes a field from the matchData and loads it into 
     // scoreMatrix as a way to hand off to jblas for the math
-    
-    scoreMatrix = new int [matchData.size()]
+    scoreMatrix = DoubleMatrix.zeros(matchData.size())
     matchData.eachWithIndex { m, idx ->
-      scoreMatrix [idx] = m."${column}".toInteger()
+    scoreMatrix.put(idx, 0, m."${column}".toInteger())
     }
   }
 
@@ -52,12 +54,20 @@ class OprCalculator extends Object {
     println "matchData.size()  = " + matchData.size()
     println "teamsIndex.size() = " + teamsIndex.size()
 
-    teamsMatrix = new int [matchData.size()] [teamsIndex.size()] 
-    
+    teamsMatrix = DoubleMatrix.zeros(matchData.size(),teamsIndex.size())
+
     matchData.eachWithIndex { m, j ->
-      teamsMatrix [j] [teamsIndex[m."team 1"]] = 1
-      teamsMatrix [j] [teamsIndex[m."team 2"]] = 1
-      teamsMatrix [j] [teamsIndex[m."team 3"]] = 1
+      teamsMatrix.put(j, teamsIndex[m."team 1"], 1)
+      teamsMatrix.put(j, teamsIndex[m."team 2"], 1)
+      teamsMatrix.put(j, teamsIndex[m."team 3"], 1)
+    }
+  }
+
+  def solve () {
+
+    def oprs = Solve.solveLeastSquares (teamsMatrix, scoreMatrix)   
+    teamsIndex.eachWithIndex { k, v, idx -> 
+      println  ("${k} =" + oprs.get(idx))
     }
   }
 
