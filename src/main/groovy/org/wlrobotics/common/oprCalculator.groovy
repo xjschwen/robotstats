@@ -14,52 +14,24 @@ class OprCalculator extends Object {
   DoubleMatrix teamsMatrix = null
   DoubleMatrix scoreMatrix = null
 
-  def fields = ["Score",
-    	 "Opponents Score",
-       //"adjustPoints",
-       "autoOwnershipPoints",
-       "autoPoints",
-       //"autoQuestRankingPoint",
-       //"autoRobot1",
-       //"autoRobot2",
-       //"autoRobot3",
-       "autoRunPoints",
-       "autoScaleOwnershipSec",
-       "autoSwitchOwnershipSec",
-       "endgamePoints",
-       //"endgameRobot1",
-       //"endgameRobot2",
-       //"endgameRobot3",
-       "foulCount",
-       "foulPoints",
-       "teleopOwnershipPoints",
-       "teleopPoints",
-       "teleopScaleBoostSec",
-       "teleopScaleForceSec",
-       "teleopScaleOwnershipSec",
-       "teleopSwitchBoostSec",
-       "teleopSwitchForceSec",
-       "teleopSwitchOwnershipSec",
-       "totalPoints",
-       "vaultBoostPlayed",
-       "vaultBoostTotal",
-       "vaultForcePlayed",
-       "vaultForceTotal",
-       "vaultLevitatePlayed",
-       "vaultLevitateTotal",
-       "vaultPoints"]
-
   OprCalculator (def matches) {
     def slurper =new JsonSlurper()
     matchData = slurper.parseText(matches)
     populateTeamMatrix()
 
-    fields.each { f -> 
-      println ("calculating $f")
-      populateScoreMatrix (f.toLowerCase())
-      def oprs = solve()
-      teamsIndex.eachWithIndex { k, v, idx -> 
-        teamsData[k].addOPRData(f, oprs.get(idx))
+    //fields.each { f -> 
+    matchData[0].each {f, g ->
+      try {
+        populateScoreMatrix (f.toLowerCase())
+        def oprs = solve()
+        teamsIndex.eachWithIndex { k, v, idx -> 
+          teamsData[k].addOPRData(f, oprs.get(idx))
+        }
+      }
+      catch (NumberFormatException e ) {
+        // do nothing This lets us attempt to calculate OPRs on things
+        // that are not numbers... and if we error we catch it and 
+        // continue on.
       }
     }
   }
