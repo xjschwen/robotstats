@@ -65,12 +65,7 @@ class OprCalculator extends Object {
       teamsData[k] = new SimpleTeamData(k)
       i++
     }
-   
-    println "matchData.size()  = " + matchData.size()
-    println "teamsIndex.size() = " + teamsIndex.size()
-
     teamsMatrix = DoubleMatrix.zeros(matchData.size(),teamsIndex.size())
-
     matchData.eachWithIndex { m, j ->
       teamsMatrix.put(j, teamsIndex[m."team 1"], 1)
       teamsMatrix.put(j, teamsIndex[m."team 2"], 1)

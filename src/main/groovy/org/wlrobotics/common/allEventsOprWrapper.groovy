@@ -1,20 +1,30 @@
 package org.wlrobotics.common
 
 import org.wlrobotics.common.DataFileSlurper
+import groovy.io.FileType
 
-class OprWrapper extends Object {
-    
+class AllEventsOprWrapper extends Object {
+    static String oprFileString = "_oprs.csv"
     
     public static void main(String[] args) {
-        OprCalculator oprCalc = new OprCalculator (DataFileSlurper.convert(args[0]))
-        String outFileName = args[0].replaceAll(".csv", "_oprs.csv")
-        writeResults (outFileName, oprCalc)
+        def workingDir = new File (args[0])
+
+        def files2Process = new FileNameByRegexFinder().getFileNames(args[0], args[1])
+
+        files2Process.reverseEach { f ->
+            if (! f.contains(oprFileString)) {
+                println "Processing ${f}"
+                OprCalculator oprCalc = new OprCalculator (DataFileSlurper.convert(f))
+                String outFileName = f.replaceAll(".csv", oprFileString)
+                writeResults (outFileName, oprCalc)
+            }
+        }
     }
 
     static void writeResults (String fName, OprCalculator oprCalcObj){
 
         File f = new File (fName)
-        f.text = ""
+        f.delete()
         String fields = ""
         String data = ""
 

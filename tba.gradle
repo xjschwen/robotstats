@@ -11,11 +11,20 @@ task tba (type: JavaExec) {
   description "Testing only for various parts of the software "
   dependsOn makeTbaDataDir
   classpath = sourceSets.main.runtimeClasspath
-  main = 'org.wlrobotics.common.OprWrapper'
+  main = 'org.wlrobotics.common.AllEventsOprWrapper'
+  args dataDirTba, "2018"
+}
+
+task tba_oprevent (type: JavaExec) {
+ group "FRC - The TroBots"
+  description "Calculates all OPRS for the given Event"
+  dependsOn makeTbaDataDir
+  classpath = sourceSets.main.runtimeClasspath
+  main = 'org.wlrobotics.common.EventOprWrapper'
   args dataDirTba + "/2018mimar_Marysville.csv"
 }
 
-task tba_event (type: JavaExec) {
+task tba_pullevent (type: JavaExec) {
   group "FRC - The TroBots"
   description "Pulls data for a one event for this season."
   dependsOn makeTbaDataDir
@@ -26,7 +35,7 @@ task tba_event (type: JavaExec) {
   args dataDirTba, "2018mimar"
 }
 
-task tba_allevents (type: JavaExec) {
+task tba_pullallevents (type: JavaExec) {
   group "FRC - The TroBots"
   description "Pulls data for a all events for this season."
   dependsOn makeTbaDataDir
