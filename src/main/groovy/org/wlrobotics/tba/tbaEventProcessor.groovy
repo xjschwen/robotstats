@@ -48,7 +48,6 @@ class TbaEventProcessor extends Object {
       matchDataRed.matchData = matchDataRaw?.score_breakdown?.red
       event.addMatch(matchDataRed)
     }
-    //event.calculateOPRs()
     event.write(buildDir)
   }
 }

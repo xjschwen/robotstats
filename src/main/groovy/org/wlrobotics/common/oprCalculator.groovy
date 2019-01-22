@@ -2,26 +2,68 @@
 package org.wlrobotics.common
 import org.jblas.Solve
 import org.jblas.DoubleMatrix
-import org.jblas.*
+//import org.jblas.*
 
 import groovy.json.JsonSlurper
 
 class OprCalculator extends Object {
 
-  def  teamsIndex = [:]
+  def teamsData = [:]
+  def teamsIndex = [:]
   def matchData = null
   DoubleMatrix teamsMatrix = null
-  
   DoubleMatrix scoreMatrix = null
 
-  OprCalculator (def matches) {
-      def slurper =new JsonSlurper()
-      matchData = slurper.parseText(matches)
-      populateTeamMatrix()
-      populateScoreMatrix ("score")
-      solve()
+  def fields = ["Score",
+    	 "Opponents Score",
+       //"adjustPoints",
+       "autoOwnershipPoints",
+       "autoPoints",
+       //"autoQuestRankingPoint",
+       //"autoRobot1",
+       //"autoRobot2",
+       //"autoRobot3",
+       "autoRunPoints",
+       "autoScaleOwnershipSec",
+       "autoSwitchOwnershipSec",
+       "endgamePoints",
+       //"endgameRobot1",
+       //"endgameRobot2",
+       //"endgameRobot3",
+       "foulCount",
+       "foulPoints",
+       "teleopOwnershipPoints",
+       "teleopPoints",
+       "teleopScaleBoostSec",
+       "teleopScaleForceSec",
+       "teleopScaleOwnershipSec",
+       "teleopSwitchBoostSec",
+       "teleopSwitchForceSec",
+       "teleopSwitchOwnershipSec",
+       "totalPoints",
+       "vaultBoostPlayed",
+       "vaultBoostTotal",
+       "vaultForcePlayed",
+       "vaultForceTotal",
+       "vaultLevitatePlayed",
+       "vaultLevitateTotal",
+       "vaultPoints"]
 
+  OprCalculator (def matches) {
+    def slurper =new JsonSlurper()
+    matchData = slurper.parseText(matches)
+    populateTeamMatrix()
+
+    fields.each { f -> 
+      println ("calculating $f")
+      populateScoreMatrix (f.toLowerCase())
+      def oprs = solve()
+      teamsIndex.eachWithIndex { k, v, idx -> 
+        teamsData[k].addOPRData(f, oprs.get(idx))
+      }
+    }
   }
+
 
   def populateScoreMatrix (String column ) {
     // takes a field from the matchData and loads it into 
@@ -48,6 +90,7 @@ class OprCalculator extends Object {
     int i = 0
     teamsIndex.each {k,v ->
       teamsIndex[k] = i
+      teamsData[k] = new SimpleTeamData(k)
       i++
     }
    
@@ -64,11 +107,7 @@ class OprCalculator extends Object {
   }
 
   def solve () {
-
-    def oprs = Solve.solveLeastSquares (teamsMatrix, scoreMatrix)   
-    teamsIndex.eachWithIndex { k, v, idx -> 
-      println  ("${k} =" + oprs.get(idx))
-    }
+    return (Solve.solveLeastSquares (teamsMatrix, scoreMatrix))
   }
 
 }

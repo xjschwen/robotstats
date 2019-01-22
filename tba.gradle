@@ -12,7 +12,7 @@ task tba (type: JavaExec) {
   dependsOn makeTbaDataDir
   classpath = sourceSets.main.runtimeClasspath
   main = 'org.wlrobotics.common.OprWrapper'
-  args dataDirTba + "/2018mimil_HighlandCharterTownship.csv"
+  args dataDirTba + "/2018mimar_Marysville.csv"
 }
 
 task tba_event (type: JavaExec) {
@@ -23,7 +23,7 @@ task tba_event (type: JavaExec) {
   main = 'org.wlrobotics.tba.GetAllEventData'
   // args [0] = directory to write the cvs file
   // args [1] = filter for event key to write.
-  args dataDirTba, "2018mimil"
+  args dataDirTba, "2018mimar"
 }
 
 task tba_allevents (type: JavaExec) {
