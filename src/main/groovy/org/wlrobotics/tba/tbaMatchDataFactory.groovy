@@ -13,7 +13,11 @@ class TbaMatchDataFactory extends Object {
 
   def getMatch (String matchKey) {
     def matchData = null
-    if (yearKey == "2018") {
+    
+    if (yearKey == "2019") {
+      matchData = new Match2019DeepSpaceData (eventKey, matchKey)
+    }
+    else if (yearKey == "2018") {
       matchData = new Match2018PowerUpData (eventKey, matchKey)
     }
     else if (yearKey == "2017") {

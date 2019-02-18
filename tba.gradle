@@ -14,32 +14,19 @@ task tba (type: JavaExec) {
   main = 'org.wlrobotics.common.AllEventsOprWrapper'
   //   directory, filerString... can be regex
   // args dataDirTba, "2018_allTeams.csv"
-  args dataDirTba, "2018"
+  args dataDirTba, "2019"
 }
 
-task tba_opr_events (type: JavaExec) {
+task tba_oprevent (type: JavaExec) {
  group "FRC - The TroBots"
-  description "Calculates the OPR data for all data sets"
+  description "Calculates all OPRS for the given Event"
   dependsOn makeTbaDataDir
   classpath = sourceSets.main.runtimeClasspath
-  main = 'org.wlrobotics.common.AllEventsOprWrapper'
-  //   directory, filerString... can be regex
-  // args dataDirTba, "2018_allTeams.csv"
-  args dataDirTba, "2018mi"
+  main = 'org.wlrobotics.common.EventOprWrapper'
+  args dataDirTba + "/2019week0_Merrimack.csv"
 }
 
-task tba_opr_event (type: JavaExec) {
- group "FRC - The TroBots"
-  description "Calculates the OPR data for the one defined data set"
-  dependsOn makeTbaDataDir
-  classpath = sourceSets.main.runtimeClasspath
-  main = 'org.wlrobotics.common.AllEventsOprWrapper'
-  //   directory, filerString... can be regex
-  // args dataDirTba, "2018_allTeams.csv"
-  args dataDirTba, "2018mimar"
-}
-
-task tba_pull_event (type: JavaExec) {
+task tba_pullevent (type: JavaExec) {
   group "FRC - The TroBots"
   description "Pulls data for a one event for this season."
   dependsOn makeTbaDataDir
@@ -47,10 +34,10 @@ task tba_pull_event (type: JavaExec) {
   main = 'org.wlrobotics.tba.GetAllEventData'
   // args [0] = directory to write the cvs file
   // args [1] = filter for event key to write.
-  args dataDirTba, "2019mimar"
+  args dataDirTba, "2019week0"
 }
 
-task tba_pull_events (type: JavaExec) {
+task tba_pullallevents (type: JavaExec) {
   group "FRC - The TroBots"
   description "Pulls data for a all events for this season."
   dependsOn makeTbaDataDir
@@ -58,8 +45,9 @@ task tba_pull_events (type: JavaExec) {
   main = 'org.wlrobotics.tba.GetAllEventData'
   // args [0] = directory to write the cvs file
   // args [1] = filter for event key to write.
-  args dataDirTba, "2018mi"
+  args dataDirTba, "2019"
 }
+
 
 task tba_listEvents (type: JavaExec) {
   group "FRC - The TroBots"
@@ -68,7 +56,9 @@ task tba_listEvents (type: JavaExec) {
   main = 'org.wlrobotics.tba.ListEvents'
   // args [0] = Year
   // args [1] = filter 
-  args "2018", "2018mi"
+  
+  args "2019", "2019mi"
+
 }
 
 
