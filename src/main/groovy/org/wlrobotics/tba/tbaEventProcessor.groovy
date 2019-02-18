@@ -31,22 +31,24 @@ class TbaEventProcessor extends Object {
     tba.getMatchDataAll(event.eventKey).each { matchDataRaw ->
       // get the match data from the internet
       //def matchDataRaw = tba.getMatchData(mk)
-      println (matchDataRaw.key)
-      def matchDataBlue = matchFactory.getMatch (matchDataRaw.key)
-      matchDataBlue.teams = matchDataRaw?.alliances?.blue?.team_keys
-      matchDataBlue.score = matchDataRaw?.alliances?.blue?.score
-      matchDataBlue.color = "blue"
-      matchDataBlue.matchData = matchDataRaw?.score_breakdown?.blue
-      matchDataBlue.opponents_score = matchDataRaw?.alliances?.red?.score
-      event.addMatch(matchDataBlue)
+      // println (matchDataRaw.key)
+      if (matchDataRaw.key =~ /_qm[0-9]{1,3}/) {
+        def matchDataBlue = matchFactory.getMatch (matchDataRaw.key)
+        matchDataBlue.teams = matchDataRaw?.alliances?.blue?.team_keys
+        matchDataBlue.score = matchDataRaw?.alliances?.blue?.score
+        matchDataBlue.color = "blue"
+        matchDataBlue.matchData = matchDataRaw?.score_breakdown?.blue
+        matchDataBlue.opponents_score = matchDataRaw?.alliances?.red?.score
+        event.addMatch(matchDataBlue)
 
-      def matchDataRed = matchFactory.getMatch(matchDataRaw.key)
-      matchDataRed.teams = matchDataRaw?.alliances?.red?.team_keys
-      matchDataRed.score = matchDataRaw?.alliances?.red?.score
-      matchDataRed.opponents_score = matchDataRaw?.alliances?.blue?.score
-      matchDataRed.color = "red"
-      matchDataRed.matchData = matchDataRaw?.score_breakdown?.red
-      event.addMatch(matchDataRed)
+        def matchDataRed = matchFactory.getMatch(matchDataRaw.key)
+        matchDataRed.teams = matchDataRaw?.alliances?.red?.team_keys
+        matchDataRed.score = matchDataRaw?.alliances?.red?.score
+        matchDataRed.opponents_score = matchDataRaw?.alliances?.blue?.score
+        matchDataRed.color = "red"
+        matchDataRed.matchData = matchDataRaw?.score_breakdown?.red
+        event.addMatch(matchDataRed)
+      }
     }
     event.write(buildDir)
   }

@@ -13,18 +13,44 @@ class Match2019DeepSpaceData extends BaseMatchData {
   }
   
   void translateMatchData () {
+
+    def bayRocketRegEx = /bay[1-8]{1}|.*LeftRocket.*|.*RightRocket.*/  
+    def habLevelRegEx = /endgameRobot[1-3]{1}|preMatchLevelRobot1[1-3]{1}/  
+    
     matchData.each { k,v ->
-      if (k.startsWith("bay")) { translate_bay()}
+      if (k =~bayRocketRegEx) { translate_bay_and_rockets()}
+      if (k =~habLevelRegEx) { translate_habLeveRobot()}
       if (k.startsWith("completeRocketRankingPoint")) {translate_RocketRank()}
-      if (k.startsWith("endgameRobot")) {translate_endgameRobot()}
       if (k.startsWith("habDockingRankingPoint")) {translate_habDockingRankingPoint()}
       if (k.startsWith("habLineRobot")) {translate_habLineRobot()}
+      if (k.startsWith("preMatchBay")) {translate_preMatchBay()}
+    }
+  }
+
+  void translate_preMatchBay() {
+    def fields = ["preMatchBay1", "preMatchBay2", "preMatchBay3", "preMatchBay4", "preMatchBay5", "preMatchBay6", "preMatchBay7", "preMatchBay8"]
+    fields.each {f ->
+      if (matchData."$f" == "Cargo") {
+        matchData."$f" = 2
+      }
+      else if (matchData."$f" == "Panel"){
+        matchData."$f" = 2
+      }
+      else if (matchData."$f" == "None"){
+        matchData."$f" = 0
+      }
     }
   }
 
 
-  void translate_bay() {
+  void translate_bay_and_rockets() {
     def fields = ["bay1", "bay2", "bay3", "bay4", "bay5", "bay6", "bay7", "bay8"]
+    def lowRockets = ["lowLeftRocketFar",	"lowLeftRocketNear", "lowRightRocketFar",	"lowRightRocketNear"]
+    def midRockets = ["midLeftRocketFar",	"midLeftRocketNear", "midRightRocketFar",	"midRightRocketNear"]
+    def topRockets = ["topLeftRocketFar",	"topLeftRocketNear", "topRightRocketFar", "topRightRocketNear"]
+
+    fields += lowRockets + midRockets + topRockets
+
     fields.each {f ->
         
       if (matchData."$f" == "PanelAndCargo") {
@@ -53,9 +79,12 @@ class Match2019DeepSpaceData extends BaseMatchData {
   }
 
 
-  void translate_endgameRobot () {
+  void translate_habLeveRobot () {
     //endgameRobot1	endgameRobot2	endgameRobot3
     def fields = ["endgameRobot1",	"endgameRobot2",	"endgameRobot3"]
+    def preMatchLevel = ["preMatchLevelRobot1", "preMatchLevelRobot2", "preMatchLevelRobot3"]
+    fields += preMatchLevel
+
     fields.each {f ->
       if (matchData."$f" == "None") {
         matchData."$f" = 0
@@ -76,8 +105,6 @@ class Match2019DeepSpaceData extends BaseMatchData {
     //habDockingRankingPoint
     def fields = ["habDockingRankingPoint"]
     fields.each {f ->
-      println (f+"="+matchData."$f")
-      
       if (matchData."$f" == false) {
         matchData."$f" = 0
       }
@@ -106,6 +133,4 @@ class Match2019DeepSpaceData extends BaseMatchData {
       }
     }
   }
-
-
 }
