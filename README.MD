@@ -232,7 +232,7 @@ I have used this task as a testing task and shortcut. It should be be used for a
 gradlew tba 
 ~~~~
 
-#### tba_listEvents - Prints Event Keys for this season.
+#### tba_listEvents - Prints Event Keys for this season
 
 I use this task to determine which event keys we need to pull.
 There are 2 arguments set in this task year and filter. The year reflects which year or game you wish to pull data for. The filter will
@@ -290,7 +290,7 @@ args dataDirTba, /.*\.csv/
 }
 ~~~~
 
-#### tba_pullallevents - Pulls data for a all events for this season.
+#### tba_pullallevents - Pulls data for a all events for this season
 
 This gradle task will pull data for every event that matches the filter key.
 
@@ -310,7 +310,7 @@ args dataDirTba, "2019week0"
 
 ~~~~
 
-#### tba_pullevent - Pulls data for a one event for this season.
+#### tba_pullevent - Pulls data for a one event for this season
 
 This gradle task will pull data based on a filter. In this case the filer is set for 2019 Michigan events. By changing the filer you can pull data for a different set of events.
 
