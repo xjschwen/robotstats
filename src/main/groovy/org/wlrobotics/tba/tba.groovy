@@ -9,11 +9,17 @@ import groovyx.net.http.ContentType
 
 class TbaRestClient extends RESTClient {
   def TbaRestClient() {
+    
+   
     String base = "https://www.thebluealliance.com/api/v3/"
-    String apiKey = "BgCq88QxszmGQPOlKllZEBE8CEMaTO4fbNJl8QvGBl1Vrd3OHTAuC74hGHaDE3B4"
+    def pr = new PropReader () 
+    def props = pr.props (pr.defaultLocations("robotstats.groovy"))
+     
+
+    String apiKey = props.robotstats.tba.apiKey
+
     def headers  = [:]
     headers.put("X-TBA-Auth-Key", apiKey)
-    //headers.put("X-Application-Origin", "8492-OPR-App")
     this.defaultURI = new URIBuilder(base)
     this.setHeaders(headers)
     this.contentType = ContentType.JSON

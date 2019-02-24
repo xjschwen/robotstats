@@ -19,7 +19,10 @@ class ToaRestClient extends RESTClient {
   
   def ToaRestClient() {
     String base = "https://theorangealliance.org/api/"
-    String apiKey = "G+tJm5ehGpprwrq262bUdeXEyx7JBtfDoU5L8xX941S6SAXywfY+iQ=="
+    def pr = new PropReader () 
+    def props = pr.props (pr.defaultLocations("robotstats.groovy"))
+    String apiKey = props.robotstats.toa.apiKey
+
     def headers  = [:]
     JsonSlurper slurper = new JsonSlurper()
     headers.put("X-TOA-Key", apiKey)
