@@ -2,65 +2,82 @@
 
 This project is to compute OPR values for as many data fields as possibe from data that can be downloaded from https://www.thebluealliance.com/ (TBA) or https://theorangealliance.org/ (TOA)
 
-
-This project uses a combonation of Groovy and Gradle to pull data and compute an OPR on as many columns as possible for each team. 
+This project uses a combination of Groovy and Gradle to pull data and compute an OPR on as many columns as possible for each team. 
 
 It is based on events so it is ideal use is for picking alliance partners that might otherwise be overlooked due to having a harder schedule or just unlucky partners.
 
 It ONLY pulls data from qualifications because including elimination matches substantially changes the OPR values because once you are working in Elimination matches the average score goes up quite a bit..
 
+Basic use case will be to pull the data after one day of competion and do focused scouting on the teams with the higher OPR values in the categories that you are instreseted in. 
 
-Basic use case will be to pull the data after one day of competion and do focused scouting on the teams with the higher OPR values in the categories that you are instreseted in.   
-
-For 2019 Destination Deep Space there are 54 columns of data.  Some of them are more useful than others.
+For 2019 Destination Deep Space there are 54 columns of data. Some of them are more useful than others.
 
 # Tech Details
-This section will cover the more technical details of the program.   If you are going to run it locally then you **MUST** have a property file with your **own** TBA or TOA api keys.
-
+This section will cover the more technical details of the program. If you are going to run it locally then you **MUST** have a property file with your **own** TBA or TOA api keys.
 
 ## API key storage
-Since the API keys are linked to MY personal accounts on these websites I have choosen to invalidate them and store new copies.   They should not be stored in GitHub or published.   That is why they are read from a groovy property file and stored in the following locations.
+Since the API keys are linked to MY personal accounts on these websites I have choosen to invalidate them and store new copies. They should not be stored in GitHub or published. That is why they are read from a groovy property file and stored in the following locations.
 
 The property file default locations are searched in the following order.
-    
-    1. The current working directory
-    2. The HOME environment vairable is common on Linux/Unix systems
-    3. The USERPROFILE environment variable is common on Windows systems.
-    4. The Documents directory just below each of these locations is also checked for the property file.
+1. The current working directory
+2. The HOME environment variable is common on Linux/Unix systems
+3. The USERPROFILE environment variable is common on Windows systems.
+4. The Documents directory just below each of these locations is also checked for the property file.
 
-The script will use the first property file that it locates... Having the file listed in more than one of these locations is NOT recommened.
+The script will use the first property file that it locates... Having the file listed in more than one of these locations is NOT recommended.
 
 The property file name is **robotstats.groovy**
 
 ~~~~
-    Paths.get(propFileName),
-    Paths.get(env["HOME"] + "/${propFileName}"),
-    Paths.get(env["USERPROFILE"] + "/${propFileName}"),
-    Paths.get(env["USERPROFILE"] + "/Documents/${propFileName}"),
-    Paths.get(env["HOME"] + "/Documents/${propFileName}"),
+Paths.get(propFileName),
+Paths.get(env["HOME"] + "/${propFileName}"),
+Paths.get(env["USERPROFILE"] + "/${propFileName}"),
+Paths.get(env["USERPROFILE"] + "/Documents/${propFileName}"),
+Paths.get(env["HOME"] + "/Documents/${propFileName}"),
 ~~~~
 
-The file needs to have this format.   Please put your API keys in the correct fields.
+The file needs to have this format. Please put your API keys in the correct fields.
 
 ~~~~~groovy
-  robotstats {
-    tba.apiKey = "<<< The Blue Alliance API key goes here >>>"
-    toa.apiKey = "<<< The Oraange Alliance API key goes here >>>"
-  }
+robotstats {
+tba.apiKey = "<<< The Blue Alliance API key goes here >>>"
+toa.apiKey = "<<< The Orange Alliance API key goes here >>>"
+}
 ~~~~~
 
-## jBlas
-The actual OPRs are calculated using the Java implementation for linear algabra http://www.jblas.org/.   This is lightning fast and on a modern laptop it has taken longer to download the data than it does to calcuate the solution for the OPRs.
+## Gradle
+The project uses Gradle to perform 2 operations. The first operation is to compile the groovy code. It is done each time there are changes to the source code. The second operation for gradle is to define the various entry points into the Application. Each operation has a operator class that is called. These operator classes are linked and called from a Gradle task. 
 
+### Data Locations
+
+The data is written out to the **./build/data/tba** and **./build/data/toa** directories.
+
+## Groovy
+
+The Gradle build tool is written in Groovy which is written is Java. Any legal statement in Java is legal in Groovy and any legal Groovy statement is legal in Gradle. This means that in any of these files that you can not make work with Gradle or Groovy syntax you can just use Java syntax. I had a work learning task for Groovy and Gradle so for me these were natrual choices for me to learn.
+
+## Java 11 issues
+
+I started picking up this set of warnings when running under Java 11. They are related to operations that Groovy is doing in the JVM. For now you can ignore them.
+
+~~~~
+WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by org.codehaus.groovy.vmplugin.v7.Java7$1 (file:/home/jas/.gradle/caches/modules-2/files-2.1/org.codehaus.groovy/groovy/2.5.5/2388f952b369f6b11cde8e15ec872e9ca3e0ff3e/groovy-2.5.5.jar) to constructor java.lang.invoke.MethodHandles$Lookup(java.lang.Class,int)
+WARNING: Please consider reporting this to the maintainers of org.codehaus.groovy.vmplugin.v7.Java7$1
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+~~~~
+
+## jBlas
+The actual OPRs are calculated using the Java implementation for linear algabra http://www.jblas.org/. This is lightning fast and on a modern laptop it has taken longer to download the data than it does to calculate the solution for the OPRs.
 
 Runnnig the **gradlew test_jblas** task will test if jBlas is correctly installed and operational on your laptop.
 
-Success will give you output simular to what is listed below.
+Success will give you output similar to what is listed below.
 
 ~~~~
- Task :test_jblas
+Task :test_jblas
 -- org.jblas INFO jblas version is 1.2.4Simple benchmark for jblas
-
 
 Running sanity benchmarks.
 
@@ -77,30 +94,30 @@ checking existence of dsyev...... ok
 [17.233688; 1.414214; 0.000000]
 checking existence of dgesvd...... ok
 Checking complex return values... (z = -21.0 + 88.0i)
-Check whether we're catching XERBLA errors. If you see something like "** On entry to DGEMM  parameter number  4 had an illegal value", it didn't work!
+Check whether we're catching XERBLA errors. If you see something like "** On entry to DGEMM parameter number 4 had an illegal value", it didn't work!
 checking XERBLA... ok
 Sanity checks passed.
 
 Each benchmark will take about 5 seconds...
 
 Running benchmark "Java matrix multiplication, double precision".
-n = 10   :  2.495 GFLOPS (6237597 iterations in 5.0 seconds)
-n = 100  :  3.305 GFLOPS (8264 iterations in 5.0 seconds)
-n = 1000 :  3.077 GFLOPS (8 iterations in 5.2 seconds)
+n = 10 : 2.495 GFLOPS (6237597 iterations in 5.0 seconds)
+n = 100 : 3.305 GFLOPS (8264 iterations in 5.0 seconds)
+n = 1000 : 3.077 GFLOPS (8 iterations in 5.2 seconds)
 
 Running benchmark "Java matrix multiplication, single precision".
-n = 10   :  2.489 GFLOPS (6223152 iterations in 5.0 seconds)
-n = 100  :  3.314 GFLOPS (8286 iterations in 5.0 seconds)
-n = 1000 :  3.394 GFLOPS (9 iterations in 5.3 seconds)
+n = 10 : 2.489 GFLOPS (6223152 iterations in 5.0 seconds)
+n = 100 : 3.314 GFLOPS (8286 iterations in 5.0 seconds)
+n = 1000 : 3.394 GFLOPS (9 iterations in 5.3 seconds)
 
 Running benchmark "native matrix multiplication, double precision".
-n = 10   :  2.040 GFLOPS (5100731 iterations in 5.0 seconds)
-n = 100  :  7.861 GFLOPS (19652 iterations in 5.0 seconds)
+n = 10 : 2.040 GFLOPS (5100731 iterations in 5.0 seconds)
+n = 100 : 7.861 GFLOPS (19652 iterations in 5.0 seconds)
 n = 1000 : 13.215 GFLOPS (34 iterations in 5.1 seconds)
 
 Running benchmark "native matrix multiplication, single precision".
-n = 10   :  2.201 GFLOPS (5503186 iterations in 5.0 seconds)
-n = 100  : 15.597 GFLOPS (38993 iterations in 5.0 seconds)
+n = 10 : 2.201 GFLOPS (5503186 iterations in 5.0 seconds)
+n = 100 : 15.597 GFLOPS (38993 iterations in 5.0 seconds)
 n = 1000 : 25.066 GFLOPS (63 iterations in 5.0 seconds)
 -- org.jblas INFO Deleting /tmp/jblas2578407818034450513/libjblas.so
 -- org.jblas INFO Deleting /tmp/jblas2578407818034450513/libjblas_arch_flavor.so
@@ -111,16 +128,8 @@ BUILD SUCCESSFUL in 1m 3s
 
 ~~~~
 
-## Gradle
-The project uses gradle to perform 2 operations.  The first operation is to compile the groovy code.   It is done each time there are changes to the source code.   The second operation for gradle is to define the various entry points into the applicaiton.   Each operation has a operator class that is called.   These operator classes are linked and called from a gradle task. 
-
-### Data Locations
-
-The data is written out to the $buildDir/data/tba and $buildDir/data/toa directories.
-
-
 ### tasks
-To have gradle list out all of the available tasks use the command **gradlew tasks** command it should give output simular to below.
+To have Gradle list out all of the available tasks use the command **gradlew tasks** command it should give output similar to below.
 
 ~~~~
 jas@Kudu:~/workspace/robotstats$ ./gradlew tasks
@@ -160,7 +169,7 @@ tba_oprevent - Calculates all OPRS for the given Event
 tba_pullallevents - Pulls data for a all events for this season.
 tba_pullevent - Pulls data for a one event for this season.
 
-FTC - Titainum Trojans tasks
+FTC - Titanium Trojans tasks
 ----------------------------
 toa - Test task for testing new features and calculations.
 toa_allevents - lists all FIM events from TOA.
@@ -207,51 +216,47 @@ jas@Kudu:~/workspace/robotstats$
 ~~~~
 
 
-
 ## TBA gradle tasks
 
 This is where some of the user friendlyness of the programs starts to wear down.
 
-This program is fully on the command line.   There is NO gui.   To change events being pulled and OPRs calculated you must make some minor edits to the tba.gradle file.
+This program is fully on the command line. There is NO gui. To change events being pulled and OPRs calculated you must make some minor edits to the tba.gradle file.
 
 I have yet to create the logic to read these values form the command line or as properties... It should be simple... Just have not gotten around to it.
 
-
 ### TBA Specific tasks
 
-
 #### tba - Testing only for various parts of the software
-I have used this task as a testing task and shortcut.   It should be be used for anything other than saving key strokes while testing functionality. 
+I have used this task as a testing task and shortcut. It should be be used for anything other than saving key strokes while testing functionality. 
 ~~~~
 gradlew tba 
 ~~~~
 
-
 #### tba_listEvents - Prints Event Keys for this season.
 
 I use this task to determine which event keys we need to pull.
-There are 2 arguments set in this task year and filter.   The year reflects which year or game you wish to pull data for.  The filter will
-limit the reported events based on the key.   
+There are 2 arguments set in this task year and filter. The year reflects which year or game you wish to pull data for. The filter will
+limit the reported events based on the key. 
 
 A filter off **2019mi** pulls all events reported for Michigan in 2019.
 
-A filter of **2019** will pull all FRC events.   Please be warned that sometimes The Blue alliance does not have all data and it gives back data that can and will crash this program.   
+A filter of **2019** will pull all FRC events. Please be warned that sometimes The Blue alliance does not have all data and it gives back data that can and will crash this program. 
 
 ~~~~gradle
 task tba_listEvents (type: JavaExec) {
-  group "FRC - The TroBots"
-  description "Prints Event Keys for this season."
-  classpath = sourceSets.main.runtimeClasspath
-  main = 'org.wlrobotics.tba.ListEvents'
-  // args [0] = Year
-  // args [1] = filter 
-  args "2019", "2019mi"
+group "FRC - The TroBots"
+description "Prints Event Keys for this season."
+classpath = sourceSets.main.runtimeClasspath
+main = 'org.wlrobotics.tba.ListEvents'
+// args [0] = Year
+// args [1] = filter 
+args "2019", "2019mi"
 }
 ~~~~
 
 #### tba_oprevent - Calculates all OPRS for the given Event
 
-Once the data is downloaded from The Blue Alliance it can be processed.  We process it with the task **tba_oprevent** I was concerned that on some lower end laptops that processing large amounts of data might take a while and therefore it would be useful to sperate the pulling of the data from Blue Alliance from calucation of the OPRs.   Turns out this was not a problem but we are stuck with this design choice for now.
+Once the data is downloaded from The Blue Alliance it can be processed. We process it with the task **tba_oprevent** I was concerned that on some lower end laptops that processing large amounts of data might take a while and therefore it would be useful to sperate the pulling of the data from Blue Alliance from calucation of the OPRs. Turns out this was not a problem but we are stuck with this design choice for now.
 
 To change the event that you want oprs from edit tba.gradle and put in the datafile that will source the oprs.
 
@@ -259,29 +264,29 @@ In the example below the data source file is **"/2019week0_Merrimack.csv"**
 
 ~~~~gradle
 task tba_oprevent (type: JavaExec) {
- group "FRC - The TroBots"
-  description "Calculates all OPRS for the given Event"
-  dependsOn makeTbaDataDir
-  classpath = sourceSets.main.runtimeClasspath
-  main = 'org.wlrobotics.common.EventOprWrapper'
-  args dataDirTba + "/2019week0_Merrimack.csv"
+group "FRC - The TroBots"
+description "Calculates all OPRS for the given Event"
+dependsOn makeTbaDataDir
+classpath = sourceSets.main.runtimeClasspath
+main = 'org.wlrobotics.common.EventOprWrapper'
+args dataDirTba + "/2019week0_Merrimack.csv"
 }
 ~~~~
 
 #### tba_oprevent - Calculates all OPRS for all event data
 
-This task will calculate the OPR spread sheet for every data sheet that is in the build directory.   You alter the file filter to change which files are being used to source the OPR data.   My experiance is that each events worth of data can be processed in just a second or two, thus I just reprocess all csv files in the **../build/data/tba** directory.
+This task will calculate the OPR spread sheet for every data sheet that is in the build directory. You alter the file filter to change which files are being used to source the OPR data. My experiance is that each events worth of data can be processed in just a second or two, thus I just reprocess all csv files in the **../build/data/tba** directory.
 
 ~~~~gradle
 task tba_oprallevents (type: JavaExec) {
- group "FRC - The TroBots"
-  description "Calculates all OPRS for the given Event"
-  dependsOn makeTbaDataDir
-  classpath = sourceSets.main.runtimeClasspath
-  main = 'org.wlrobotics.common.AllEventsOprWrapper'
-  arg [0] = dataoutput directory
-  arg [1] = include all csv files
-  args dataDirTba, /.*\.csv/
+group "FRC - The TroBots"
+description "Calculates all OPRS for the given Event"
+dependsOn makeTbaDataDir
+classpath = sourceSets.main.runtimeClasspath
+main = 'org.wlrobotics.common.AllEventsOprWrapper'
+arg [0] = dataoutput directory
+arg [1] = include all csv files
+args dataDirTba, /.*\.csv/
 }
 ~~~~
 
@@ -293,35 +298,34 @@ In the example below it only pulls the data for the one event that matches **201
 
 ~~~~gradle
 task tba_pullevent (type: JavaExec) {
-  group "FRC - The TroBots"
-  description "Pulls data for a one event for this season."
-  dependsOn makeTbaDataDir
-  classpath = sourceSets.main.runtimeClasspath
-  main = 'org.wlrobotics.tba.GetAllEventData'
-  // args [0] = directory to write the cvs file
-  // args [1] = filter for event key to write.
-  args dataDirTba, "2019week0"
+group "FRC - The TroBots"
+description "Pulls data for a one event for this season."
+dependsOn makeTbaDataDir
+classpath = sourceSets.main.runtimeClasspath
+main = 'org.wlrobotics.tba.GetAllEventData'
+// args [0] = directory to write the cvs file
+// args [1] = filter for event key to write.
+args dataDirTba, "2019week0"
 }
 
 ~~~~
-
 
 #### tba_pullevent - Pulls data for a one event for this season.
 
-This gradle task will pull data based on a filter.   In this case the filer is set for 2019 Michigan events.  By changing the filer you can pull data for a different set of events.
-
+This gradle task will pull data based on a filter. In this case the filer is set for 2019 Michigan events. By changing the filer you can pull data for a different set of events.
 
 ~~~~gradle
 task tba_pullallevents (type: JavaExec) {
-  group "FRC - The TroBots"
-  description "Pulls data for a all events for this season."
-  dependsOn makeTbaDataDir
-  classpath = sourceSets.main.runtimeClasspath
-  main = 'org.wlrobotics.tba.GetAllEventData'
-  // args [0] = directory to write the cvs file
-  // args [1] = filter for event key to write.
-  args dataDirTba, "2019mi"
+group "FRC - The TroBots"
+description "Pulls data for a all events for this season."
+dependsOn makeTbaDataDir
+classpath = sourceSets.main.runtimeClasspath
+main = 'org.wlrobotics.tba.GetAllEventData'
+// args [0] = directory to write the cvs file
+// args [1] = filter for event key to write.
+args dataDirTba, "2019mi"
 }
 ~~~~
 
 
+## TOA documentation is comming after FRC Season is complete.

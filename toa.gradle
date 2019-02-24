@@ -17,7 +17,7 @@ task toa () {
 }
 
 task toa_event (type: JavaExec) {
-  group "FTC - Titainum Trojans"
+  group "FTC - Titanium Trojans"
   description "lists all FIM events from TOA."
   dependsOn makeDataDir
   classpath = sourceSets.main.runtimeClasspath
@@ -28,7 +28,7 @@ task toa_event (type: JavaExec) {
 }
 
 task toa_allevents (type: JavaExec) {
-  group "FTC - Titainum Trojans"
+  group "FTC - Titanium Trojans"
   description "lists all FIM events from TOA."
   dependsOn makeDataDir
   classpath = sourceSets.main.runtimeClasspath
@@ -39,7 +39,7 @@ task toa_allevents (type: JavaExec) {
 }
 
 task toa_states (type: JavaExec) {
-  group "FTC - Titainum Trojans"
+  group "FTC - Titanium Trojans"
   description "lists all FIM events from TOA."
   dependsOn makeDataDir
   classpath = sourceSets.main.runtimeClasspath
@@ -50,7 +50,7 @@ task toa_states (type: JavaExec) {
 }
 
 task toa_regions (type: JavaExec) {
-  group "FTC - Titainum Trojans"
+  group "FTC - Titanium Trojans"
   description "lists all of the FTC regions in the TOA"
   dependsOn makeDataDir
   classpath = sourceSets.main.runtimeClasspath
@@ -58,7 +58,7 @@ task toa_regions (type: JavaExec) {
 }
 
 task toa_seasons (type: JavaExec) {
-  group "FTC - Titainum Trojans"
+  group "FTC - Titanium Trojans"
   description "lists all of the FTC seasons in the TOA"
   dependsOn makeDataDir
   classpath = sourceSets.main.runtimeClasspath
