@@ -268,7 +268,22 @@ task tba_oprevent (type: JavaExec) {
 }
 ~~~~
 
+#### tba_oprevent - Calculates all OPRS for all event data
 
+This task will calculate the OPR spread sheet for every data sheet that is in the build directory.   You alter the file filter to change which files are being used to source the OPR data.   My experiance is that each events worth of data can be processed in just a second or two, thus I just reprocess all csv files in the **../build/data/tba** directory.
+
+~~~~gradle
+task tba_oprallevents (type: JavaExec) {
+ group "FRC - The TroBots"
+  description "Calculates all OPRS for the given Event"
+  dependsOn makeTbaDataDir
+  classpath = sourceSets.main.runtimeClasspath
+  main = 'org.wlrobotics.common.AllEventsOprWrapper'
+  arg [0] = dataoutput directory
+  arg [1] = include all csv files
+  args dataDirTba, /.*\.csv/
+}
+~~~~
 
 #### tba_pullallevents - Pulls data for a all events for this season.
 
