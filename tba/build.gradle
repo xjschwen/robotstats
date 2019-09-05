@@ -17,7 +17,7 @@ task tba (type: JavaExec) {
   args dataDirTba, "2019"
 }
 
-task tba_oprevent (type: JavaExec) {
+task oprevent (type: JavaExec) {
  group "FRC - The TroBots"
   description "Calculates all OPRS for the given Event"
   dependsOn makeTbaDataDir
@@ -26,7 +26,7 @@ task tba_oprevent (type: JavaExec) {
   args dataDirTba + "/2019mialp_Alpena.csv"
 }
 
-task tba_oprallevents (type: JavaExec) {
+task oprallevents (type: JavaExec) {
  group "FRC - The TroBots"
   description "Calculates all OPRS for the given Event"
   dependsOn makeTbaDataDir
@@ -35,7 +35,7 @@ task tba_oprallevents (type: JavaExec) {
   args dataDirTba, /.*\.csv/
 }
 
-task tba_pullevent (type: JavaExec) {
+task pullevent (type: JavaExec) {
   group "FRC - The TroBots"
   description "Pulls data for a one event for this season."
   dependsOn makeTbaDataDir
@@ -46,7 +46,7 @@ task tba_pullevent (type: JavaExec) {
   args dataDirTba, "2019marcd"
 }
 
-task tba_pullallevents (type: JavaExec) {
+task pullallevents (type: JavaExec) {
   group "FRC - The TroBots"
   description "Pulls data for a all events for this season."
   dependsOn makeTbaDataDir
@@ -58,7 +58,7 @@ task tba_pullallevents (type: JavaExec) {
 }
 
 
-task tba_listEvents (type: JavaExec) {
+task listEvents (type: JavaExec) {
   group "FRC - The TroBots"
   description "Prints Event Keys for this season."
   classpath = sourceSets.main.runtimeClasspath

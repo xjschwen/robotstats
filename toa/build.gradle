@@ -16,8 +16,8 @@ task toa () {
   }
 }
 
-task toa_event (type: JavaExec) {
-  group "FTC - Titanium Trojans"
+task event (type: JavaExec) {
+  group "FTC - Titainum Trojans"
   description "lists all FIM events from TOA."
   dependsOn makeDataDir
   classpath = sourceSets.main.runtimeClasspath
@@ -27,8 +27,8 @@ task toa_event (type: JavaExec) {
   args dataDir, "1819-FIM-Q4" 
 }
 
-task toa_allevents (type: JavaExec) {
-  group "FTC - Titanium Trojans"
+task allevents (type: JavaExec) {
+  group "FTC - Titainum Trojans"
   description "lists all FIM events from TOA."
   dependsOn makeDataDir
   classpath = sourceSets.main.runtimeClasspath
@@ -38,8 +38,8 @@ task toa_allevents (type: JavaExec) {
   args dataDir, "1819-FIM" 
 }
 
-task toa_states (type: JavaExec) {
-  group "FTC - Titanium Trojans"
+task states (type: JavaExec) {
+  group "FTC - Titainum Trojans"
   description "lists all FIM events from TOA."
   dependsOn makeDataDir
   classpath = sourceSets.main.runtimeClasspath
@@ -49,16 +49,16 @@ task toa_states (type: JavaExec) {
   args dataDir, "1819-FIM-CMP" 
 }
 
-task toa_regions (type: JavaExec) {
-  group "FTC - Titanium Trojans"
+task regions (type: JavaExec) {
+  group "FTC - Titainum Trojans"
   description "lists all of the FTC regions in the TOA"
   dependsOn makeDataDir
   classpath = sourceSets.main.runtimeClasspath
   main = 'org.wlrobotics.toa.GetRegions'
 }
 
-task toa_seasons (type: JavaExec) {
-  group "FTC - Titanium Trojans"
+task seasons (type: JavaExec) {
+  group "FTC - Titainum Trojans"
   description "lists all of the FTC seasons in the TOA"
   dependsOn makeDataDir
   classpath = sourceSets.main.runtimeClasspath
