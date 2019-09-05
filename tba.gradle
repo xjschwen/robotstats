@@ -23,7 +23,7 @@ task tba_oprevent (type: JavaExec) {
   dependsOn makeTbaDataDir
   classpath = sourceSets.main.runtimeClasspath
   main = 'org.wlrobotics.common.EventOprWrapper'
-  args dataDirTba + "/2019week0_Merrimack.csv"
+  args dataDirTba + "/2019mialp_Alpena.csv"
 }
 
 task tba_oprallevents (type: JavaExec) {
