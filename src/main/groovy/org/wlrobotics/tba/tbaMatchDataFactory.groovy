@@ -14,6 +14,10 @@ class TbaMatchDataFactory extends Object {
   def getMatch (String matchKey) {
     def matchData = null
     
+    //if (yearKey == "2022") {
+    //  matchData = new Match2022RapidReactData (eventKey, matchKey)
+    //}
+
     if (yearKey == "2019") {
       matchData = new Match2019DeepSpaceData (eventKey, matchKey)
     }
