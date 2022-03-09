@@ -24,7 +24,7 @@ task event (type: JavaExec) {
   main = 'org.wlrobotics.toa.GetAllEventData'
   // args [0] = directory to write the cvs file
   // args [1] = filter for event key to write.
-  args dataDir, "1819-FIM-Q4" 
+  args dataDir, "2122-FIM-Q4" 
 }
 
 task allevents (type: JavaExec) {
@@ -35,7 +35,7 @@ task allevents (type: JavaExec) {
   main = 'org.wlrobotics.toa.GetAllEventData'
   // args [0] = directory to write the cvs file
   // args [1] = filter for event key to write.
-  args dataDir, "1819-FIM" 
+  args dataDir, "2122-FIM" 
 }
 
 task states (type: JavaExec) {
@@ -46,7 +46,7 @@ task states (type: JavaExec) {
   main = 'org.wlrobotics.toa.GetAllEventData'
   // args [0] = directory to write the cvs file
   // args [1] = filter for event key to write.
-  args dataDir, "1819-FIM-CMP" 
+  args dataDir, "2122-FIM-CMP" 
 }
 
 task regions (type: JavaExec) {

@@ -13,8 +13,8 @@ class ToaRestClient extends RESTClient {
   def lastCalls_queue = [] as Queue
   
   // The Orange Alliance limits people to 30 calls per minute... 
-  // the values below limit things to 30 calls in 61 seconds...
-  final long TOACall_limit = 30
+  // the values below limit things to 20 calls in 60 seconds...
+  final long TOACall_limit = 5
   final long TOACall_limit_Sec = 61000
   
   def ToaRestClient() {
@@ -56,7 +56,7 @@ class ToaRestClient extends RESTClient {
           println "INFO: Waiting on TOA Call Limit.  ${d.toString()}"
           loopCounter = 0
       }
-      sleep(1000)
+      sleep(1050)
       d = new Date ()
       currTime = d.getTime()
     }
