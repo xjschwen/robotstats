@@ -43,7 +43,7 @@ task pullevent (type: JavaExec) {
   main = 'org.wlrobotics.tba.GetAllEventData'
   // args [0] = directory to write the cvs file
   // args [1] = filter for event key to write.
-  args dataDirTba, "2023midet"
+  args dataDirTba, "2023week0"
 }
 
 task pullallevents (type: JavaExec) {
@@ -54,7 +54,7 @@ task pullallevents (type: JavaExec) {
   main = 'org.wlrobotics.tba.GetAllEventData'
   // args [0] = directory to write the cvs file
   // args [1] = filter for event key to write.
-  args dataDirTba, "2023mi"
+  args dataDirTba, "2023"
 }
 
 
@@ -66,6 +66,6 @@ task listEvents (type: JavaExec) {
   // args [0] = Year
   // args [1] = filter
 
-  args "2023", "2023mi"
+  args "2023", "2023"
 
 }
